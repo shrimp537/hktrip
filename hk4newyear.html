@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>香港跨年散步手帳 2026–2027｜日系繪本風旅遊行程</title>
+  <title>香港跨年旅遊</title>
+  <meta property="og:title" content="香港跨年旅遊" />
   <!-- Google Fonts: Huninn 粉圓體 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -366,6 +367,26 @@
             </div>
           </div>
         </div>
+
+        <!-- 跨裝置分享與備份工具列 -->
+        <div class="mt-4 pt-4 border-t-2 border-dashed border-ink flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+          <button id="shareUrlBtn" type="button"
+            class="ehon-btn bg-yamabuki hover:bg-coral px-4 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
+            <span>🔗</span>
+            <span>複製最新行程網址</span>
+          </button>
+          <button id="exportJsonBtn" type="button"
+            class="ehon-btn bg-mizuiro hover:bg-wakatake px-3.5 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
+            <span>💾</span>
+            <span>匯出備份檔</span>
+          </button>
+          <button id="importJsonBtn" type="button"
+            class="ehon-btn bg-washi hover:bg-wakatake px-3.5 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
+            <span>📂</span>
+            <span>匯入備份檔</span>
+          </button>
+          <input id="importJsonInput" type="file" accept=".json,application/json" class="hidden" />
+        </div>
       </div>
     </section>
 
@@ -714,15 +735,132 @@
     let currentDayIndex = 0;
 
     // ==========================================
-    // 2. 資料讀寫與 Toast 提示
+    // 2. 內建純 JS 輕量 LZW + Base64URL 壓縮編解碼（支援完整繁體中文，零外部依賴）
     // ==========================================
+    function lzwCompressToBase64Url(uncompressedStr) {
+      const utf8Bytes = new TextEncoder().encode(uncompressedStr);
+      const dict = new Map();
+      for (let i = 0; i < 256; i++) {
+        dict.set(String.fromCharCode(i), i);
+      }
+      let w = "";
+      const codes = [];
+      let dictSize = 256;
+
+      for (let i = 0; i < utf8Bytes.length; i++) {
+        const c = String.fromCharCode(utf8Bytes[i]);
+        const wc = w + c;
+        if (dict.has(wc)) {
+          w = wc;
+        } else {
+          codes.push(dict.get(w));
+          if (dictSize < 65535) {
+            dict.set(wc, dictSize++);
+          }
+          w = c;
+        }
+      }
+      if (w !== "") {
+        codes.push(dict.get(w));
+      }
+
+      const uint16Arr = new Uint16Array(codes);
+      const byteArr = new Uint8Array(uint16Arr.buffer);
+      let binary = "";
+      const chunkSize = 0x8000;
+      for (let i = 0; i < byteArr.length; i += chunkSize) {
+        binary += String.fromCharCode.apply(null, byteArr.subarray(i, i + chunkSize));
+      }
+      return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    }
+
+    function lzwDecompressFromBase64Url(base64UrlStr) {
+      let b64 = base64UrlStr.replace(/-/g, "+").replace(/_/g, "/");
+      while (b64.length % 4 !== 0) {
+        b64 += "=";
+      }
+      const binary = atob(b64);
+      const byteArr = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        byteArr[i] = binary.charCodeAt(i);
+      }
+      const codes = new Uint16Array(byteArr.buffer);
+      if (codes.length === 0) return "";
+
+      const dict = new Map();
+      for (let i = 0; i < 256; i++) {
+        dict.set(i, String.fromCharCode(i));
+      }
+      let dictSize = 256;
+      let w = String.fromCharCode(codes[0]);
+      let result = w;
+
+      for (let i = 1; i < codes.length; i++) {
+        const k = codes[i];
+        let entry = "";
+        if (dict.has(k)) {
+          entry = dict.get(k);
+        } else if (k === dictSize) {
+          entry = w + w.charAt(0);
+        } else {
+          throw new Error("無效的壓縮代碼");
+        }
+        result += entry;
+        if (dictSize < 65535) {
+          dict.set(dictSize++, w + entry.charAt(0));
+        }
+        w = entry;
+      }
+
+      const outBytes = new Uint8Array(result.length);
+      for (let i = 0; i < result.length; i++) {
+        outBytes[i] = result.charCodeAt(i);
+      }
+      return new TextDecoder().decode(outBytes);
+    }
+
+    function isValidTripStructure(data) {
+      return Boolean(
+        data &&
+        typeof data === "object" &&
+        data.hero &&
+        data.flights &&
+        Array.isArray(data.days) &&
+        data.hotel &&
+        data.checklists
+      );
+    }
+
+    let syncedFromUrlBanner = false;
+
     function loadAppState() {
+      // 1. 優先檢查網址是否帶有 #trip= 分享資料
+      try {
+        const hash = window.location.hash || "";
+        if (hash.startsWith("#trip=") && hash.length > 6) {
+          const encoded = hash.slice(6);
+          const jsonStr = lzwDecompressFromBase64Url(encoded);
+          const sharedData = JSON.parse(jsonStr);
+          if (isValidTripStructure(sharedData)) {
+            localStorage.setItem(STORAGE_KEY_APP, JSON.stringify(sharedData));
+            // 清除網址列長參數，保持網址乾淨清爽
+            if (window.history && window.history.replaceState) {
+              window.history.replaceState(null, "", window.location.pathname + window.location.search);
+            }
+            syncedFromUrlBanner = true;
+            return sharedData;
+          }
+        }
+      } catch (e) {
+        console.warn("解析分享網址失敗，改讀取本機資料", e);
+      }
+
+      // 2. 讀取本機瀏覽器紀錄
       try {
         const raw = localStorage.getItem(STORAGE_KEY_APP);
         if (raw) {
           const parsed = JSON.parse(raw);
-          // 確保結構完整
-          if (parsed && parsed.hero && parsed.flights && parsed.days && parsed.hotel && parsed.checklists) {
+          if (isValidTripStructure(parsed)) {
             return parsed;
           }
         }
@@ -730,6 +868,108 @@
         console.warn("讀取設定失敗，使用預設香港跨年資料", e);
       }
       return JSON.parse(JSON.stringify(DEFAULT_TRIP_DATA));
+    }
+
+    function copyTextSafely(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text).catch(() => fallbackExecCopy(text));
+      }
+      return Promise.resolve(fallbackExecCopy(text));
+    }
+
+    function fallbackExecCopy(text) {
+      const tempInput = document.createElement("textarea");
+      tempInput.value = text;
+      tempInput.style.position = "fixed";
+      tempInput.style.opacity = "0";
+      document.body.appendChild(tempInput);
+      tempInput.focus();
+      tempInput.select();
+      let ok = false;
+      try {
+        ok = document.execCommand("copy");
+      } catch (err) {
+        ok = false;
+      }
+      document.body.removeChild(tempInput);
+      return ok;
+    }
+
+    function handleGenerateShareUrl() {
+      try {
+        const jsonStr = JSON.stringify(appState);
+        const compressed = lzwCompressToBase64Url(jsonStr);
+        const baseUrl = window.location.origin + window.location.pathname;
+        const shareUrl = `${baseUrl}#trip=${compressed}`;
+
+        copyTextSafely(shareUrl).then((copied) => {
+          if (copied !== false) {
+            showToast("已複製最新行程網址！傳給手機或旅伴點開就能同步 ✨");
+          }
+          openModal("🔗 分享最新行程網址", `
+            <div class="space-y-3 text-sm">
+              <p class="leading-relaxed">已將您目前所有的<strong>航班、每日行程、住宿與清單</strong>打包進這條專屬網址！傳到 LINE 給手機或旅伴，點開就會自動載入最新進度：</p>
+              <textarea id="shareUrlTextarea" rows="3" readonly class="ehon-input text-xs break-all bg-yamabuki/20">${escapeHtml(shareUrl)}</textarea>
+              <div class="flex justify-end gap-2 pt-1">
+                <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-2 font-bold">關閉</button>
+                <button type="button" id="modalCopyShareUrlBtn" class="ehon-btn bg-yamabuki px-5 py-2 font-bold">📋 再複製一次</button>
+              </div>
+            </div>
+          `);
+          const ta = document.getElementById("shareUrlTextarea");
+          if (ta) ta.select();
+          const btn = document.getElementById("modalCopyShareUrlBtn");
+          if (btn) {
+            btn.addEventListener("click", () => {
+              ta.select();
+              fallbackExecCopy(shareUrl);
+              showToast("已複製最新行程網址！✨");
+            });
+          }
+        });
+      } catch (err) {
+        showToast("產生分享網址時發生錯誤，請改用匯出備份檔");
+      }
+    }
+
+    function handleExportJson() {
+      try {
+        const jsonStr = JSON.stringify(appState, null, 2);
+        const blob = new Blob([jsonStr], { type: "application/json;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        const today = new Date().toISOString().slice(0, 10);
+        a.href = url;
+        a.download = `hk_trip_backup_${today}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast("已下載行程備份檔 (.json) 💾");
+      } catch (e) {
+        showToast("匯出備份檔失敗");
+      }
+    }
+
+    function handleImportJsonFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const parsed = JSON.parse(event.target.result);
+          if (!isValidTripStructure(parsed)) {
+            showToast("檔案格式不符，請選擇正確的旅遊手帳備份檔");
+            return;
+          }
+          appState = parsed;
+          currentDayIndex = 0;
+          saveAppState("已成功匯入並同步備份行程！🎉");
+          renderAll();
+        } catch (err) {
+          showToast("讀取檔案失敗，請確認為有效的 JSON 備份檔");
+        }
+      };
+      reader.readAsText(file, "UTF-8");
     }
 
     function saveAppState(toastMsg = "已自動儲存至手帳") {
@@ -1682,6 +1922,24 @@
       document.getElementById("editDayThemeBtn").addEventListener("click", openDayThemeModal);
       document.getElementById("openAddEventModalBtn").addEventListener("click", () => openEventModal(null));
       document.getElementById("openHotelModalBtn").addEventListener("click", openHotelEditModal);
+
+      // 綁定跨裝置網址同步與 JSON 備份匯出入按鈕
+      document.getElementById("shareUrlBtn").addEventListener("click", handleGenerateShareUrl);
+      document.getElementById("exportJsonBtn").addEventListener("click", handleExportJson);
+      const importInput = document.getElementById("importJsonInput");
+      document.getElementById("importJsonBtn").addEventListener("click", () => importInput.click());
+      importInput.addEventListener("change", (e) => {
+        if (e.target.files && e.target.files[0]) {
+          handleImportJsonFile(e.target.files[0]);
+          e.target.value = "";
+        }
+      });
+
+      if (syncedFromUrlBanner) {
+        setTimeout(() => {
+          showToast("已從分享連結同步最新行程！🎉");
+        }, 400);
+      }
 
       initChecklistForms();
       initScrollSpy();
