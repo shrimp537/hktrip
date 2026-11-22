@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>香港跨年旅遊</title>
   <meta property="og:title" content="香港跨年旅遊" />
-  <!-- Google Fonts: Huninn 粉圓體 -->
+  <!-- Google Fonts: Huninn 與 Zen Maru Gothic 圓體 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -18,76 +18,80 @@
           colors: {
             washi: '#FFFCF6',
             ink: '#3E3A39',
-            coral: '#F2A497',
-            yamabuki: '#F6D27A',
-            mizuiro: '#A8D3E6',
-            wakatake: '#B9DAA5',
+            coral: '#F28B82',
+            yamabuki: '#F6C85F',
+            mizuiro: '#8ECAE6',
+            wakatake: '#95D5B2',
           },
           fontFamily: {
-            huninn: ['"Huninn"', 'sans-serif'],
+            ehon: ['"Huninn"', '"Zen Maru Gothic"', 'sans-serif'],
           }
         }
       }
     }
   </script>
   <style>
-    /* 全域和紙白底色與日系繪本質感 */
+    /* 和紙白底色與細微紙張顆粒紋理 */
     body {
       background-color: #FFFCF6;
       color: #3E3A39;
-      font-family: 'Huninn', sans-serif;
-      background-image: radial-gradient(#3E3A3912 1px, transparent 1px);
-      background-size: 20px 20px;
+      font-family: 'Huninn', 'Zen Maru Gothic', sans-serif;
+      background-image:
+        radial-gradient(rgba(62, 58, 57, 0.065) 1px, transparent 0),
+        radial-gradient(rgba(242, 139, 130, 0.06) 1px, transparent 0);
+      background-size: 22px 22px;
+      background-position: 0 0, 11px 11px;
       overflow-x: hidden;
     }
 
-    /* 繪本風 3px 墨灰粗線框與硬邊立體陰影 */
+    /* 繪本風 2px 墨灰粗框與硬陰影 */
     .ehon-card {
       background-color: #FFFCF6;
-      border: 3px solid #3E3A39;
-      border-radius: 24px;
+      border: 2px solid #3E3A39;
+      border-radius: 22px;
       box-shadow: 4px 4px 0px #3E3A39;
     }
 
     .ehon-card-sm {
-      border: 3px solid #3E3A39;
-      border-radius: 20px;
+      background-color: #FFFCF6;
+      border: 2px solid #3E3A39;
+      border-radius: 18px;
       box-shadow: 3px 3px 0px #3E3A39;
     }
 
     .ehon-btn {
-      border: 3px solid #3E3A39;
+      border: 2px solid #3E3A39;
       border-radius: 9999px;
-      box-shadow: 3px 3px 0px #3E3A39;
+      box-shadow: 2.5px 2.5px 0px #3E3A39;
       transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s ease;
-      min-height: 40px;
+      min-height: 38px;
     }
 
     .ehon-btn:active {
       transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0px #3E3A39;
+      box-shadow: 0.5px 0.5px 0px #3E3A39;
     }
 
     .ehon-pill {
-      border: 2.5px solid #3E3A39;
+      border: 2px solid #3E3A39;
       border-radius: 9999px;
     }
 
     .ehon-input {
       background-color: #FFFCF6;
-      border: 2.5px solid #3E3A39;
+      border: 2px solid #3E3A39;
       border-radius: 14px;
       padding: 8px 12px;
       width: 100%;
       font-size: 0.95rem;
       transition: background-color 0.15s ease;
     }
+
     .ehon-input:focus {
       outline: none;
-      background-color: #F6D27A33;
+      background-color: rgba(246, 200, 95, 0.25);
     }
 
-    /* 隱藏水平捲動條但保留滑動功能 */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -96,646 +100,541 @@
       scrollbar-width: none;
     }
 
-    /* 插圖輕柔律動動畫 */
-    @keyframes gentleFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
-    }
-
-    @keyframes cloudDrift {
-      0%, 100% { transform: translateX(0px); }
-      50% { transform: translateX(8px); }
-    }
-
+    /* 繪本輕柔微動畫 */
     @keyframes ferryBob {
       0%, 100% { transform: rotate(-1.5deg) translateY(0px); }
       50% { transform: rotate(1.5deg) translateY(-3px); }
     }
-
-    @keyframes tramMove {
-      0%, 100% { transform: translateX(0px); }
-      50% { transform: translateX(6px); }
-    }
-
     @keyframes fireworkTwinkle {
       0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.25); opacity: 0.7; }
+      50% { transform: scale(1.22); opacity: 0.75; }
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.95) translateY(8px); }
+      100% { opacity: 1; transform: scale(1) translateY(0px); }
     }
 
-    /* 切換日期時的彈跳進場動畫 */
-    @keyframes popBounce {
-      0% {
-        opacity: 0;
-        transform: scale(0.92) translateY(14px);
-      }
-      60% {
-        opacity: 1;
-        transform: scale(1.02) translateY(-3px);
-      }
-      80% {
-        transform: scale(0.99) translateY(1px);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0px);
-      }
-    }
-
-    .anim-float { animation: gentleFloat 3.6s ease-in-out infinite; }
-    .anim-cloud { animation: cloudDrift 5s ease-in-out infinite; }
     .anim-ferry { animation: ferryBob 3.2s ease-in-out infinite; }
-    .anim-tram { animation: tramMove 3s ease-in-out infinite; }
     .anim-sparkle { animation: fireworkTwinkle 2.4s ease-in-out infinite; transform-origin: center; }
-    .anim-bounce-in { animation: popBounce 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-
-    /* 系統與手動「減少動態效果」設定 */
-    @media (prefers-reduced-motion: reduce) {
-      .anim-float, .anim-cloud, .anim-ferry, .anim-tram, .anim-sparkle, .anim-bounce-in {
-        animation: none !important;
-        transition: none !important;
-      }
-      html { scroll-behavior: auto !important; }
-    }
-
-    body.reduce-motion .anim-float,
-    body.reduce-motion .anim-cloud,
-    body.reduce-motion .anim-ferry,
-    body.reduce-motion .anim-tram,
-    body.reduce-motion .anim-sparkle,
-    body.reduce-motion .anim-bounce-in {
-      animation: none !important;
-      transition: none !important;
-    }
-    body.reduce-motion { scroll-behavior: auto !important; }
+    .anim-pop { animation: popIn 0.24s ease-out forwards; }
 
     /* 登機證左右缺口 */
     .ticket-notch-left, .ticket-notch-right {
       position: absolute;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       background-color: #FFFCF6;
-      border: 3px solid #3E3A39;
+      border: 2px solid #3E3A39;
       border-radius: 9999px;
       top: 52%;
       transform: translateY(-50%);
       z-index: 10;
     }
-    .ticket-notch-left { left: -13px; }
-    .ticket-notch-right { right: -13px; }
+    .ticket-notch-left { left: -12px; }
+    .ticket-notch-right { right: -12px; }
   </style>
 </head>
-<body class="antialiased selection:bg-yamabuki selection:text-ink pb-24">
+<body class="antialiased selection:bg-yamabuki selection:text-ink pb-20">
 
-  <!-- 頂端固定導覽列 -->
-  <header class="sticky top-0 z-40 bg-washi border-b-[3px] border-ink px-3 py-2">
-    <div class="max-w-2xl mx-auto flex items-center justify-between gap-2">
-      <!-- 導覽膠囊連結 -->
-      <nav aria-label="主要導覽" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-        <a href="#hero" data-nav="hero" class="nav-link ehon-pill bg-yamabuki px-3 py-1.5 text-sm font-bold whitespace-nowrap">首頁</a>
-        <a href="#flights" data-nav="flights" class="nav-link ehon-pill bg-washi px-3 py-1.5 text-sm font-bold whitespace-nowrap hover:bg-yamabuki/50">航班</a>
-        <a href="#itinerary" data-nav="itinerary" class="nav-link ehon-pill bg-washi px-3 py-1.5 text-sm font-bold whitespace-nowrap hover:bg-yamabuki/50">行程</a>
-        <a href="#hotel" data-nav="hotel" class="nav-link ehon-pill bg-washi px-3 py-1.5 text-sm font-bold whitespace-nowrap hover:bg-yamabuki/50">住宿</a>
-        <a href="#checklists" data-nav="checklists" class="nav-link ehon-pill bg-washi px-3 py-1.5 text-sm font-bold whitespace-nowrap hover:bg-yamabuki/50">清單</a>
-      </nav>
+  <!-- 頂部視覺區 -->
+  <header class="max-w-3xl mx-auto px-4 pt-5 pb-3">
+    <div class="ehon-card p-5 sm:p-6 relative overflow-hidden">
+      <!-- 頂端標籤與標題編輯 -->
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <span class="ehon-pill bg-coral px-3 py-1 text-xs font-bold tracking-wider">HONG KONG 2026–2027</span>
+        <button id="editHeroBtn" type="button"
+          class="ehon-pill bg-washi hover:bg-yamabuki px-3 py-1 text-xs font-bold flex items-center gap-1 transition-colors">
+          <span>✎</span>
+          <span>編輯標題與日期</span>
+        </button>
+      </div>
 
-      <!-- 減少動態效果手動切換鈕 -->
-      <button id="motionToggleBtn" type="button" aria-pressed="false" title="切換動畫效果"
-        class="shrink-0 ehon-pill bg-mizuiro px-2.5 py-1.5 text-xs font-bold flex items-center gap-1 active:translate-y-0.5">
-        <span id="motionDot" class="inline-block w-2.5 h-2.5 rounded-full bg-wakatake border-2 border-ink"></span>
-        <span id="motionLabel">動態:開</span>
-      </button>
+      <!-- 自訂手繪 SVG 插畫：維多利亞港跨年煙火、天星小輪、雙層叮叮車與相機/行李箱 -->
+      <div class="w-full bg-mizuiro/30 border-2 border-ink rounded-[18px] p-3 mb-4">
+        <svg viewBox="0 0 460 175" class="w-full h-auto block" role="img" aria-label="日系繪本風香港維多利亞港煙火與天星小輪插畫">
+          <!-- 跨年煙火星芒 -->
+          <g class="anim-sparkle">
+            <path d="M56 20 L59 29 L68 32 L59 35 L56 44 L53 35 L44 32 L53 29 Z" fill="#F6C85F" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/>
+          </g>
+          <g class="anim-sparkle" style="animation-delay: 0.8s;">
+            <path d="M398 18 L400.5 25 L408 27.5 L400.5 30 L398 37 L395.5 30 L388 27.5 L395.5 25 Z" fill="#F28B82" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/>
+          </g>
+          <circle cx="94" cy="22" r="3" fill="#F28B82" stroke="#3E3A39" stroke-width="1.8"/>
+          <circle cx="364" cy="36" r="3" fill="#F6C85F" stroke="#3E3A39" stroke-width="1.8"/>
+
+          <!-- 雲朵 -->
+          <path d="M128 34 C128 26, 140 24, 145 30 C150 23, 164 25, 166 34 C173 35, 174 44, 165 45 L130 45 C122 45, 122 35, 128 34 Z"
+            fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M294 28 C294 21, 305 19, 309 24 C314 18, 326 20, 328 28 C334 29, 335 37, 327 38 L296 38 C289 38, 289 29, 294 28 Z"
+            fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.2" stroke-linejoin="round"/>
+
+          <!-- 維港天際線剪影 -->
+          <rect x="36" y="74" width="32" height="50" rx="4" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.2"/>
+          <rect x="74" y="50" width="36" height="74" rx="4" fill="#F6C85F" stroke="#3E3A39" stroke-width="2.2"/>
+          <line x1="84" y1="60" x2="84" y2="112" stroke="#3E3A39" stroke-width="2"/>
+          <line x1="92" y1="60" x2="92" y2="112" stroke="#3E3A39" stroke-width="2"/>
+          <line x1="100" y1="60" x2="100" y2="112" stroke="#3E3A39" stroke-width="2"/>
+
+          <!-- 中銀幾何塔 -->
+          <line x1="224" y1="28" x2="224" y2="42" stroke="#3E3A39" stroke-width="2.2" stroke-linecap="round"/>
+          <line x1="234" y1="28" x2="234" y2="42" stroke="#3E3A39" stroke-width="2.2" stroke-linecap="round"/>
+          <polygon points="212,124 212,56 229,42 246,56 246,124" fill="#8ECAE6" stroke="#3E3A39" stroke-width="2.2" stroke-linejoin="round"/>
+          <line x1="212" y1="56" x2="246" y2="86" stroke="#3E3A39" stroke-width="2"/>
+          <line x1="246" y1="56" x2="212" y2="86" stroke="#3E3A39" stroke-width="2"/>
+          <line x1="212" y1="86" x2="246" y2="116" stroke="#3E3A39" stroke-width="2"/>
+          <line x1="246" y1="86" x2="212" y2="116" stroke="#3E3A39" stroke-width="2"/>
+
+          <!-- 會展中心波浪屋頂 -->
+          <path d="M256 124 L256 96 Q282 80 308 96 Q330 85 352 98 L352 124 Z" fill="#F28B82" stroke="#3E3A39" stroke-width="2.2" stroke-linejoin="round"/>
+          <rect x="358" y="72" width="28" height="52" rx="4" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.2"/>
+
+          <!-- 維港海面 -->
+          <rect x="10" y="120" width="440" height="24" fill="#8ECAE6" stroke="#3E3A39" stroke-width="2.2"/>
+          <path d="M36 132 Q48 128 60 132 T84 132" fill="none" stroke="#FFFCF6" stroke-width="2" stroke-linecap="round"/>
+          <path d="M366 131 Q378 127 390 131 T414 131" fill="none" stroke="#FFFCF6" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- 微笑天星小輪 -->
+          <g class="anim-ferry">
+            <rect x="154" y="92" width="9" height="10" rx="2" fill="#F6C85F" stroke="#3E3A39" stroke-width="2"/>
+            <rect x="136" y="100" width="48" height="11" rx="3" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/>
+            <path d="M126 111 L194 111 L187 126 L133 126 Z" fill="#95D5B2" stroke="#3E3A39" stroke-width="2.2" stroke-linejoin="round"/>
+            <circle cx="154" cy="118" r="1.8" fill="#3E3A39"/>
+            <circle cx="166" cy="118" r="1.8" fill="#3E3A39"/>
+            <path d="M157 120 Q160 123 163 120" fill="none" stroke="#3E3A39" stroke-width="1.8" stroke-linecap="round"/>
+          </g>
+
+          <!-- 岸邊道路 + 復古雙層叮叮車 + 可愛小行李箱 -->
+          <rect x="10" y="144" width="440" height="23" rx="3" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.2"/>
+          <!-- 小行李箱 -->
+          <g>
+            <rect x="74" y="124" width="22" height="24" rx="4" fill="#F28B82" stroke="#3E3A39" stroke-width="2.2"/>
+            <path d="M81 124 L81 118 L89 118 L89 124" fill="none" stroke="#3E3A39" stroke-width="2.2"/>
+            <line x1="81" y1="124" x2="81" y2="148" stroke="#3E3A39" stroke-width="1.8"/>
+            <line x1="89" y1="124" x2="89" y2="148" stroke="#3E3A39" stroke-width="1.8"/>
+            <circle cx="79" cy="150" r="2.5" fill="#3E3A39"/>
+            <circle cx="91" cy="150" r="2.5" fill="#3E3A39"/>
+          </g>
+          <!-- 復古雙層叮叮車 -->
+          <g>
+            <polyline points="274,110 281,102 288,110" fill="none" stroke="#3E3A39" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="256" y="110" width="52" height="36" rx="7" fill="#95D5B2" stroke="#3E3A39" stroke-width="2.2"/>
+            <rect x="257.5" y="125" width="49" height="5" fill="#F6C85F"/>
+            <rect x="262" y="114" width="9" height="8" rx="1.5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="1.8"/>
+            <rect x="275" y="114" width="9" height="8" rx="1.5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="1.8"/>
+            <rect x="288" y="114" width="9" height="8" rx="1.5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="1.8"/>
+            <rect x="262" y="133" width="9" height="8" rx="1.5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="1.8"/>
+            <rect x="275" y="133" width="9" height="8" rx="1.5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="1.8"/>
+            <rect x="288" y="133" width="9" height="8" rx="1.5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="1.8"/>
+            <circle cx="268" cy="148" r="3.8" fill="#3E3A39"/>
+            <circle cx="296" cy="148" r="3.8" fill="#3E3A39"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 標題與日期 -->
+      <div class="text-center space-y-1.5 mb-4">
+        <h1 id="heroTitleDisplay" class="text-2xl sm:text-3xl font-black tracking-wide">香港跨年旅遊 2026–2027</h1>
+        <div class="inline-flex items-center gap-2 bg-washi border-2 border-ink rounded-full px-3.5 py-1 text-xs sm:text-sm font-bold">
+          <span>📅</span>
+          <span id="tripDateRangeDisplay">2026/12/31 (四) – 2027/01/04 (一) ・ 5天4夜</span>
+        </div>
+      </div>
+
+      <!-- 距離 2026/12/31 即時倒數計時小卡 -->
+      <div class="bg-yamabuki border-2 border-ink rounded-[18px] p-3.5 sm:p-4">
+        <div class="flex items-center justify-between mb-2.5">
+          <span class="font-bold text-xs sm:text-sm flex items-center gap-1.5">
+            <span>⏰</span>
+            <span id="countdownStatusLabel">距離 2026/12/31 跨年出發還有</span>
+          </span>
+          <button id="quickCountdownBtn" type="button"
+            class="bg-washi border-2 border-ink rounded-full px-2.5 py-0.5 text-xs font-bold hover:bg-coral transition-colors">
+            ✎ 設定時間
+          </button>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <div class="bg-washi border-2 border-ink rounded-2xl py-2 px-1">
+            <div id="cd-days" class="text-xl sm:text-2xl font-black leading-none">--</div>
+            <div class="text-[11px] mt-1 font-bold">天</div>
+          </div>
+          <div class="bg-washi border-2 border-ink rounded-2xl py-2 px-1">
+            <div id="cd-hours" class="text-xl sm:text-2xl font-black leading-none">--</div>
+            <div class="text-[11px] mt-1 font-bold">小時</div>
+          </div>
+          <div class="bg-washi border-2 border-ink rounded-2xl py-2 px-1">
+            <div id="cd-mins" class="text-xl sm:text-2xl font-black leading-none">--</div>
+            <div class="text-[11px] mt-1 font-bold">分鐘</div>
+          </div>
+          <div class="bg-washi border-2 border-ink rounded-2xl py-2 px-1">
+            <div id="cd-secs" class="text-xl sm:text-2xl font-black leading-none">--</div>
+            <div class="text-[11px] mt-1 font-bold">秒</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 跨裝置同步工具列 -->
+      <div class="mt-4 pt-3.5 border-t-2 border-dashed border-ink flex flex-wrap items-center justify-center gap-2">
+        <button id="shareUrlBtn" type="button"
+          class="ehon-btn bg-yamabuki hover:bg-coral px-3.5 py-1.5 text-xs sm:text-sm font-bold flex items-center gap-1.5">
+          <span>🔗</span>
+          <span>複製最新行程網址</span>
+        </button>
+        <button id="exportJsonBtn" type="button"
+          class="ehon-btn bg-mizuiro hover:bg-wakatake px-3.5 py-1.5 text-xs sm:text-sm font-bold flex items-center gap-1.5">
+          <span>💾</span>
+          <span>匯出備份</span>
+        </button>
+        <button id="importJsonBtn" type="button"
+          class="ehon-btn bg-washi hover:bg-wakatake px-3.5 py-1.5 text-xs sm:text-sm font-bold flex items-center gap-1.5">
+          <span>📂</span>
+          <span>匯入還原</span>
+        </button>
+        <input id="importJsonInput" type="file" accept=".json,application/json" class="hidden" />
+      </div>
     </div>
   </header>
 
-  <!-- 主要內容容器（手機優先） -->
-  <main class="max-w-2xl mx-auto px-4 pt-5 space-y-10">
+  <!-- 黏性分頁導覽（4 個主要分頁） -->
+  <nav aria-label="主要分頁切換" class="sticky top-0 z-40 bg-washi/95 backdrop-blur-sm border-y-2 border-ink py-2.5 px-4 mb-5">
+    <div class="max-w-3xl mx-auto grid grid-cols-4 gap-2">
+      <button type="button" data-tab="flights" class="main-tab-btn ehon-btn bg-washi py-1.5 px-2 text-xs sm:text-sm font-bold flex items-center justify-center gap-1">
+        <span>✈️</span>
+        <span>航班資訊</span>
+      </button>
+      <button type="button" data-tab="itinerary" class="main-tab-btn ehon-btn bg-yamabuki py-1.5 px-2 text-xs sm:text-sm font-bold flex items-center justify-center gap-1">
+        <span>🗓️</span>
+        <span>每日行程</span>
+      </button>
+      <button type="button" data-tab="hotels" class="main-tab-btn ehon-btn bg-washi py-1.5 px-2 text-xs sm:text-sm font-bold flex items-center justify-center gap-1">
+        <span>🏨</span>
+        <span>住宿資訊</span>
+      </button>
+      <button type="button" data-tab="checklists" class="main-tab-btn ehon-btn bg-washi py-1.5 px-2 text-xs sm:text-sm font-bold flex items-center justify-center gap-1">
+        <span>🧳</span>
+        <span>行前清單</span>
+      </button>
+    </div>
+  </nav>
 
-    <!-- 1. 首頁 Hero 區塊 -->
-    <section id="hero" class="scroll-mt-20 space-y-4">
-      <!-- 主視覺繪本卡片 -->
-      <div class="ehon-card p-5 sm:p-7 relative overflow-hidden">
-        <!-- 頂部標籤與編輯標題鈕 -->
-        <div class="flex justify-between items-center gap-2 mb-3">
-          <span class="ehon-pill bg-coral px-3 py-1 text-xs sm:text-sm font-bold">HONG KONG 2026–2027</span>
-          <button id="openHeroModalBtn" type="button"
-            class="ehon-pill bg-washi hover:bg-yamabuki px-3 py-1 text-xs sm:text-sm font-bold flex items-center gap-1 transition-colors">
-            <span>✎</span>
-            <span>編輯標題與日期</span>
+  <!-- 主內容區塊 -->
+  <main class="max-w-3xl mx-auto px-4">
+
+    <!-- ========================================== -->
+    <!-- 分頁 1：航班資訊（支援自由新增/編輯/刪除多筆航班） -->
+    <!-- ========================================== -->
+    <section id="panel-flights" class="tab-panel hidden space-y-4 anim-pop">
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-full bg-mizuiro border-2 border-ink flex items-center justify-center font-bold">✈</span>
+          <h2 class="text-xl font-black">航班資訊</h2>
+        </div>
+        <button id="addFlightBtn" type="button"
+          class="ehon-btn bg-mizuiro hover:bg-yamabuki px-4 py-1.5 text-xs sm:text-sm font-bold flex items-center gap-1">
+          <span>＋</span>
+          <span>新增航班</span>
+        </button>
+      </div>
+
+      <div id="flightsList" class="space-y-4"></div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 分頁 2：每日行程（支援自由增減天數 + 節點上下移動/編輯） -->
+    <!-- ========================================== -->
+    <section id="panel-itinerary" class="tab-panel space-y-4 anim-pop">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-full bg-coral border-2 border-ink flex items-center justify-center font-bold">🗺</span>
+          <h2 class="text-xl font-black">每日行程</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="addDayBtn" type="button"
+            class="ehon-btn bg-washi hover:bg-wakatake px-3 py-1.5 text-xs font-bold flex items-center gap-1">
+            <span>＋</span>
+            <span>新增天數</span>
+          </button>
+          <button id="addEventBtn" type="button"
+            class="ehon-btn bg-coral hover:bg-yamabuki px-3.5 py-1.5 text-xs sm:text-sm font-bold flex items-center gap-1">
+            <span>＋</span>
+            <span>新增行程</span>
           </button>
         </div>
+      </div>
 
-        <!-- 原創日系繪本風 SVG：維多利亞港天際線、微笑天星小輪、雙層叮叮車與跨年煙火 -->
-        <div class="w-full bg-mizuiro/35 border-[3px] border-ink rounded-[22px] p-3 sm:p-4 mb-5 relative">
-          <svg viewBox="0 0 420 220" class="w-full h-auto block" role="img" aria-label="日系繪本風香港維多利亞港、天星小輪與叮叮車插畫">
-            <!-- 跨年煙火星星（珊瑚粉 & 山吹黃） -->
-            <g class="anim-sparkle">
-              <path d="M58 26 L61 35 L70 38 L61 41 L58 50 L55 41 L46 38 L55 35 Z" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/>
-            </g>
-            <g class="anim-sparkle" style="animation-delay: 0.9s;">
-              <path d="M356 24 L358.5 31 L366 33.5 L358.5 36 L356 43 L353.5 36 L346 33.5 L353.5 31 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/>
-            </g>
-            <circle cx="92" cy="25" r="3" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/>
-            <circle cx="326" cy="45" r="3" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/>
+      <!-- 天數切換標籤列 -->
+      <div id="dayTabsBar" role="tablist" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1"></div>
 
-            <!-- 漂浮雲朵 -->
-            <g class="anim-cloud">
-              <path d="M115 44 C115 35, 129 32, 134 39 C140 31, 156 33, 158 43 C166 44, 167 55, 157 56 L117 56 C108 56, 108 45, 115 44 Z"
-                fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
-            </g>
-            <g class="anim-float" style="animation-delay: 0.7s;">
-              <path d="M262 36 C262 28, 274 26, 279 32 C284 25, 298 27, 300 35 C307 36, 308 46, 299 47 L264 47 C256 47, 256 37, 262 36 Z"
-                fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
-            </g>
-
-            <!-- 維多利亞港天際線剪影（平塗繪本風） -->
-            <!-- 左側大樓 -->
-            <rect x="34" y="92" width="34" height="58" rx="4" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
-            <line x1="43" y1="102" x2="59" y2="102" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="43" y1="112" x2="59" y2="112" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="43" y1="122" x2="59" y2="122" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/>
-
-            <!-- 國際金融中心風格高塔 -->
-            <rect x="74" y="64" width="38" height="86" rx="4" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
-            <line x1="84" y1="74" x2="84" y2="138" stroke="#3E3A39" stroke-width="2.2" stroke-linecap="round"/>
-            <line x1="93" y1="74" x2="93" y2="138" stroke="#3E3A39" stroke-width="2.2" stroke-linecap="round"/>
-            <line x1="102" y1="74" x2="102" y2="138" stroke="#3E3A39" stroke-width="2.2" stroke-linecap="round"/>
-
-            <!-- 中銀大廈幾何三角切面風格 -->
-            <g>
-              <line x1="210" y1="36" x2="210" y2="54" stroke="#3E3A39" stroke-width="3" stroke-linecap="round"/>
-              <line x1="222" y1="36" x2="222" y2="54" stroke="#3E3A39" stroke-width="3" stroke-linecap="round"/>
-              <polygon points="196,150 196,68 216,52 236,68 236,150" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
-              <!-- 幾何交叉線 -->
-              <line x1="196" y1="68" x2="236" y2="104" stroke="#3E3A39" stroke-width="2.5"/>
-              <line x1="236" y1="68" x2="196" y2="104" stroke="#3E3A39" stroke-width="2.5"/>
-              <line x1="196" y1="104" x2="236" y2="140" stroke="#3E3A39" stroke-width="2.5"/>
-              <line x1="236" y1="104" x2="196" y2="140" stroke="#3E3A39" stroke-width="2.5"/>
-            </g>
-
-            <!-- 右側會展中心波浪屋頂剪影 -->
-            <path d="M246 150 L246 116 Q275 98 304 116 Q328 104 352 118 L352 150 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
-            <rect x="358" y="88" width="30" height="62" rx="4" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
-
-            <!-- 維多利亞港海面（水色平塗） -->
-            <rect x="10" y="146" width="400" height="32" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3"/>
-            <path d="M35 162 Q48 157 61 162 T87 162" fill="none" stroke="#FFFCF6" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M315 160 Q328 155 341 160 T367 160" fill="none" stroke="#FFFCF6" stroke-width="2.5" stroke-linecap="round"/>
-
-            <!-- 可愛微笑「天星小輪 Star Ferry」（在維港海面上輕輕搖晃） -->
-            <g class="anim-ferry">
-              <!-- 煙囪 -->
-              <rect x="148" y="114" width="10" height="12" rx="2" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
-              <!-- 上層白甲板 -->
-              <rect x="128" y="124" width="54" height="12" rx="4" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5"/>
-              <circle cx="138" cy="130" r="2" fill="#3E3A39"/>
-              <circle cx="148" cy="130" r="2" fill="#3E3A39"/>
-              <circle cx="158" cy="130" r="2" fill="#3E3A39"/>
-              <circle cx="168" cy="130" r="2" fill="#3E3A39"/>
-              <!-- 經典若竹綠船身 -->
-              <path d="M116 136 L194 136 L186 154 L124 154 Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
-              <!-- 小輪可愛微笑臉 -->
-              <circle cx="148" cy="144" r="2.2" fill="#3E3A39"/>
-              <circle cx="162" cy="144" r="2.2" fill="#3E3A39"/>
-              <path d="M152 147 Q155 151 158 147" fill="none" stroke="#3E3A39" stroke-width="2" stroke-linecap="round"/>
-            </g>
-
-            <!-- 岸邊道路與香港復古雙層「叮叮車」 -->
-            <rect x="10" y="176" width="400" height="28" rx="4" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
-            <g class="anim-tram">
-              <!-- 集電弓 -->
-              <polyline points="248,136 256,127 264,136" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <!-- 雙層車身（若竹綠 + 山吹黃） -->
-              <rect x="226" y="136" width="60" height="42" rx="8" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3"/>
-              <!-- 中間山吹黃腰帶 -->
-              <rect x="227.5" y="154" width="57" height="6" fill="#F6D27A"/>
-              <!-- 上層車窗 -->
-              <rect x="233" y="141" width="10" height="9" rx="2" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/>
-              <rect x="247" y="141" width="10" height="9" rx="2" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/>
-              <rect x="261" y="141" width="10" height="9" rx="2" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/>
-              <rect x="274" y="141" width="7" height="9" rx="2" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/>
-              <!-- 下層車窗 -->
-              <rect x="233" y="163" width="10" height="9" rx="2" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/>
-              <rect x="247" y="163" width="10" height="9" rx="2" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/>
-              <rect x="261" y="163" width="10" height="9" rx="2" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/>
-              <!-- 車輪 -->
-              <circle cx="240" cy="180" r="4.5" fill="#3E3A39"/>
-              <circle cx="272" cy="180" r="4.5" fill="#3E3A39"/>
-            </g>
+      <!-- 當日主題標題橫幅 -->
+      <div id="dayThemeBanner" class="ehon-card-sm bg-yamabuki p-3.5 sm:p-4 flex items-center justify-between gap-3">
+        <div class="min-w-0 flex-1">
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="currentDayLabel" class="text-xs font-black bg-washi border-2 border-ink rounded-full px-2.5 py-0.5">Day 1 ・ 12/31 跨年夜</span>
+            <button id="editDayMetaBtn" type="button"
+              class="bg-washi hover:bg-coral border-2 border-ink rounded-full px-2.5 py-0.5 text-xs font-bold transition-colors">
+              ✎ 編輯這天
+            </button>
+            <button id="deleteDayBtn" type="button"
+              class="bg-washi hover:bg-coral border-2 border-ink rounded-full px-2.5 py-0.5 text-xs font-bold transition-colors">
+              🗑 刪除此天
+            </button>
+          </div>
+          <h3 id="currentDayTheme" class="text-base sm:text-lg font-black mt-1.5 truncate">維港跨年倒數與尖沙咀散步</h3>
+        </div>
+        <!-- 相機小插圖 -->
+        <div class="shrink-0 w-12 h-12 bg-washi border-2 border-ink rounded-2xl flex items-center justify-center">
+          <svg viewBox="0 0 40 40" class="w-8 h-8" role="img" aria-label="相機插畫">
+            <rect x="6" y="13" width="28" height="19" rx="4" fill="#F28B82" stroke="#3E3A39" stroke-width="2.2"/>
+            <path d="M14 13 L16 9 L24 9 L26 13" fill="#F6C85F" stroke="#3E3A39" stroke-width="2.2" stroke-linejoin="round"/>
+            <circle cx="20" cy="22.5" r="5.5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.2"/>
+            <circle cx="20" cy="22.5" r="2.2" fill="#8ECAE6"/>
+            <circle cx="29" cy="17" r="1.5" fill="#3E3A39"/>
           </svg>
         </div>
+      </div>
 
-        <!-- 可自訂的標題與日期 -->
-        <div class="text-center space-y-2 mb-6">
-          <h1 id="heroTitleDisplay" class="text-2xl sm:text-4xl font-bold tracking-wide text-ink">香港跨年散步手帳 2026–2027</h1>
-          <p id="heroSubtitleDisplay" class="text-sm sm:text-base text-ink/85">維港跨年煙火・百年叮叮車・茶餐廳與太平山慢旅</p>
-          <div class="inline-flex items-center gap-2 bg-washi border-2 border-ink rounded-full px-4 py-1 text-sm font-bold mt-1">
-            <span>📅</span>
-            <span id="tripDateRangeDisplay">2026/12/31 (四) – 2027/01/04 (一) ・ 5天4夜</span>
-          </div>
-        </div>
-
-        <!-- 出發倒數計時卡片 -->
-        <div class="bg-yamabuki border-[3px] border-ink rounded-[22px] p-4 sm:p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="font-bold text-sm sm:text-base flex items-center gap-1.5">
-              <span>⏰</span>
-              <span id="countdownStatusLabel">距離跨年出發還有</span>
-            </span>
-            <button id="quickDateBtn" type="button"
-              class="bg-washi border-2 border-ink rounded-full px-3 py-1 text-xs font-bold hover:bg-coral transition-colors">
-              ✏️ 修改倒數時間
-            </button>
-          </div>
-
-          <!-- 倒數數字方塊 -->
-          <div class="grid grid-cols-4 gap-2 sm:gap-3 text-center">
-            <div class="bg-washi border-[3px] border-ink rounded-2xl py-2.5 px-1">
-              <div id="cd-days" class="text-2xl sm:text-3xl font-bold leading-none">--</div>
-              <div class="text-xs mt-1 font-bold">天</div>
-            </div>
-            <div class="bg-washi border-[3px] border-ink rounded-2xl py-2.5 px-1">
-              <div id="cd-hours" class="text-2xl sm:text-3xl font-bold leading-none">--</div>
-              <div class="text-xs mt-1 font-bold">小時</div>
-            </div>
-            <div class="bg-washi border-[3px] border-ink rounded-2xl py-2.5 px-1">
-              <div id="cd-mins" class="text-2xl sm:text-3xl font-bold leading-none">--</div>
-              <div class="text-xs mt-1 font-bold">分鐘</div>
-            </div>
-            <div class="bg-washi border-[3px] border-ink rounded-2xl py-2.5 px-1">
-              <div id="cd-secs" class="text-2xl sm:text-3xl font-bold leading-none">--</div>
-              <div class="text-xs mt-1 font-bold">秒</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 跨裝置分享與備份工具列 -->
-        <div class="mt-4 pt-4 border-t-2 border-dashed border-ink flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
-          <button id="shareUrlBtn" type="button"
-            class="ehon-btn bg-yamabuki hover:bg-coral px-4 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
-            <span>🔗</span>
-            <span>複製最新行程網址</span>
-          </button>
-          <button id="exportJsonBtn" type="button"
-            class="ehon-btn bg-mizuiro hover:bg-wakatake px-3.5 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
-            <span>💾</span>
-            <span>匯出備份檔</span>
-          </button>
-          <button id="importJsonBtn" type="button"
-            class="ehon-btn bg-washi hover:bg-wakatake px-3.5 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
-            <span>📂</span>
-            <span>匯入備份檔</span>
-          </button>
-          <input id="importJsonInput" type="file" accept=".json,application/json" class="hidden" />
-        </div>
+      <!-- 垂直時間軸容器 -->
+      <div id="timelineWrapper" class="relative pl-6 sm:pl-7 space-y-3.5 pt-1">
+        <div id="timelineAxis" class="absolute left-[11px] sm:left-[13px] top-3 bottom-3 w-[2.5px] bg-ink rounded-full" aria-hidden="true"></div>
+        <div id="timelineItems" class="space-y-3.5"></div>
       </div>
     </section>
 
-    <!-- 2. 航班資訊區塊（去程 / 回程皆可自由編輯） -->
-    <section id="flights" class="scroll-mt-20 space-y-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2.5">
-          <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-mizuiro border-[3px] border-ink font-bold">✈</span>
-          <h2 class="text-xl sm:text-2xl font-bold">航班資訊</h2>
-        </div>
-        <span class="text-xs font-bold text-ink/75">點擊卡片右上角可自訂航班</span>
-      </div>
-
-      <div id="flightsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <!-- 由 JS 動態渲染去程與回程登機證 -->
-      </div>
-    </section>
-
-    <!-- 3. 每日行程區塊（2026/12/31 - 2027/01/04 預設空白 + 彈跳切換 + 自由新增/編輯） -->
-    <section id="itinerary" class="scroll-mt-20 space-y-4">
+    <!-- ========================================== -->
+    <!-- 分頁 3：住宿資訊（支援多間住宿點自由新增/編輯/刪除） -->
+    <!-- ========================================== -->
+    <section id="panel-hotels" class="tab-panel hidden space-y-4 anim-pop">
       <div class="flex items-center justify-between gap-2">
-        <div class="flex items-center gap-2.5">
-          <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-coral border-[3px] border-ink font-bold">🗺</span>
-          <h2 class="text-xl sm:text-2xl font-bold">每日散步行程</h2>
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-full bg-wakatake border-2 border-ink flex items-center justify-center font-bold">🏨</span>
+          <h2 class="text-xl font-black">住宿資訊</h2>
         </div>
-        <button id="openAddEventModalBtn" type="button"
-          class="ehon-btn bg-coral px-3.5 py-1.5 text-xs sm:text-sm font-bold flex items-center gap-1">
+        <button id="addHotelBtn" type="button"
+          class="ehon-btn bg-wakatake hover:bg-yamabuki px-4 py-1.5 text-xs sm:text-sm font-bold flex items-center gap-1">
           <span>＋</span>
-          <span>新增行程</span>
+          <span>新增住宿</span>
         </button>
       </div>
 
-      <!-- 上方日期切換列（5天跨年日期） -->
-      <div id="dayTabs" role="tablist" aria-label="選擇行程日期" class="grid grid-cols-5 gap-1.5 sm:gap-2">
-        <!-- 由 JS 動態產生 Day 1 ~ Day 5 按鈕 -->
-      </div>
-
-      <!-- 當日主題橫幅（可點擊編輯當日主題） -->
-      <div id="daySummaryBanner" class="ehon-card-sm bg-yamabuki p-3.5 sm:p-4 flex items-center justify-between gap-3">
-        <div class="flex-1 min-w-0">
-          <div class="flex items-center gap-2">
-            <span id="dayBannerDate" class="text-xs font-bold">DAY 1 ・ 12/31 (四) 跨年夜</span>
-            <button id="editDayThemeBtn" type="button"
-              class="bg-washi border-2 border-ink rounded-full px-2 py-0.5 text-[11px] font-bold hover:bg-coral transition-colors">
-              ✎ 編輯主題
-            </button>
-          </div>
-          <h3 id="dayBannerTitle" class="text-base sm:text-lg font-bold mt-1 truncate">尚未規劃，點擊上方編輯今日主題 ✨</h3>
-        </div>
-        <!-- 每日香港主題小插圖 -->
-        <div id="dayBannerIcon" class="shrink-0 w-12 h-12 bg-washi border-[3px] border-ink rounded-2xl flex items-center justify-center">
-        </div>
-      </div>
-
-      <!-- 下方垂直時間軸容器 -->
-      <div id="timelineContainer" class="relative pl-6 sm:pl-7 space-y-4 pt-1">
-        <!-- 左側垂直 3px 墨灰時間線 -->
-        <div id="timelineVerticalLine" class="absolute left-[11px] sm:left-[13px] top-3 bottom-3 w-[3px] bg-ink rounded-full" aria-hidden="true"></div>
-        <!-- 行程卡片或空白狀態插畫卡由 JS 動態渲染 -->
-      </div>
+      <div id="hotelsList" class="space-y-4"></div>
     </section>
 
-    <!-- 4. 住宿資訊區塊（完全可編輯） -->
-    <section id="hotel" class="scroll-mt-20 space-y-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2.5">
-          <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-wakatake border-[3px] border-ink font-bold">🏠</span>
-          <h2 class="text-xl sm:text-2xl font-bold">住宿資訊</h2>
+    <!-- ========================================== -->
+    <!-- 分頁 4：行前清單（支援自訂分類 + 分類內直接新增項目） -->
+    <!-- ========================================== -->
+    <section id="panel-checklists" class="tab-panel hidden space-y-4 anim-pop">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-full bg-yamabuki border-2 border-ink flex items-center justify-center font-bold">✓</span>
+          <h2 class="text-xl font-black">行前清單</h2>
         </div>
-        <button id="openHotelModalBtn" type="button"
-          class="ehon-btn bg-wakatake px-3.5 py-1.5 text-xs sm:text-sm font-bold flex items-center gap-1">
-          <span>✎</span>
-          <span>編輯住宿</span>
+        <button id="addCategoryBtn" type="button"
+          class="ehon-btn bg-yamabuki hover:bg-coral px-4 py-1.5 text-xs sm:text-sm font-bold flex items-center gap-1">
+          <span>＋</span>
+          <span>新增清單分類</span>
         </button>
       </div>
 
-      <div id="hotelCardContainer" class="ehon-card p-5 space-y-4">
-        <!-- 由 JS 渲染住宿資訊卡片 -->
-      </div>
-    </section>
-
-    <!-- 5. 可打勾的互動清單區塊（香港行前待辦、出發前確認、冬季行李清單） -->
-    <section id="checklists" class="scroll-mt-20 space-y-6">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2.5">
-          <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-yamabuki border-[3px] border-ink font-bold">✓</span>
-          <h2 class="text-xl sm:text-2xl font-bold">行前＆行李檢查表</h2>
+      <!-- 總完成度進度條 -->
+      <div class="ehon-card-sm p-3.5 sm:p-4">
+        <div class="flex justify-between items-center text-xs sm:text-sm font-bold mb-2">
+          <span>🎒 整體準備進度</span>
+          <span id="checklistProgressText">0 / 0 (0%)</span>
         </div>
-        <button id="resetAllDataBtn" type="button"
-          class="text-xs font-bold underline decoration-2 underline-offset-4 hover:text-coral">
-          重置全站資料
-        </button>
-      </div>
-
-      <!-- 總進度條卡片 -->
-      <div class="ehon-card-sm bg-washi p-4">
-        <div class="flex justify-between items-center text-sm font-bold mb-2">
-          <span>🎒 整體準備完成度</span>
-          <span id="totalProgressText">0 / 0 (0%)</span>
-        </div>
-        <div class="w-full h-5 bg-washi border-[3px] border-ink rounded-full overflow-hidden p-0.5">
-          <div id="totalProgressBar" class="h-full bg-wakatake rounded-full transition-all duration-300" style="width: 0%"></div>
+        <div class="w-full h-4 bg-washi border-2 border-ink rounded-full overflow-hidden p-0.5">
+          <div id="checklistProgressBar" class="h-full bg-wakatake rounded-full transition-all duration-300" style="width: 0%"></div>
         </div>
       </div>
 
-      <!-- A. 行前待辦清單 -->
-      <div class="ehon-card p-5 space-y-3">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="w-3.5 h-3.5 rounded-full bg-coral border-2 border-ink"></span>
-            <h3 class="text-lg font-bold">香港行前待辦清單</h3>
-          </div>
-          <span id="todoCountBadge" class="ehon-pill bg-coral/40 px-2.5 py-0.5 text-xs font-bold">0/0</span>
-        </div>
-        <ul id="list-todo" class="space-y-2"></ul>
-        <form data-list-type="todo" class="add-item-form flex gap-2 pt-2">
-          <input type="text" placeholder="新增行前待辦（如：預約太平山纜車）..." required
-            class="flex-1 bg-washi border-2 border-ink rounded-xl px-3 py-2 text-sm focus:outline-none focus:bg-yamabuki/20" />
-          <button type="submit" class="ehon-btn bg-coral px-3.5 py-1.5 text-sm font-bold shrink-0">＋新增</button>
-        </form>
-      </div>
-
-      <!-- B. 出發前最終確認清單 -->
-      <div class="ehon-card p-5 space-y-3">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="w-3.5 h-3.5 rounded-full bg-yamabuki border-2 border-ink"></span>
-            <h3 class="text-lg font-bold">出發前出門確認</h3>
-          </div>
-          <span id="beforeLeaveCountBadge" class="ehon-pill bg-yamabuki/60 px-2.5 py-0.5 text-xs font-bold">0/0</span>
-        </div>
-        <ul id="list-beforeLeave" class="space-y-2"></ul>
-        <form data-list-type="beforeLeave" class="add-item-form flex gap-2 pt-2">
-          <input type="text" placeholder="新增出門前提醒..." required
-            class="flex-1 bg-washi border-2 border-ink rounded-xl px-3 py-2 text-sm focus:outline-none focus:bg-yamabuki/20" />
-          <button type="submit" class="ehon-btn bg-yamabuki px-3.5 py-1.5 text-sm font-bold shrink-0">＋新增</button>
-        </form>
-      </div>
-
-      <!-- C. 行李打包清單 -->
-      <div class="ehon-card p-5 space-y-4">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="w-3.5 h-3.5 rounded-full bg-mizuiro border-2 border-ink"></span>
-            <h3 class="text-lg font-bold">香港跨年行李清單</h3>
-          </div>
-          <span id="packingCountBadge" class="ehon-pill bg-mizuiro/60 px-2.5 py-0.5 text-xs font-bold">0/0</span>
-        </div>
-
-        <div id="packingGroupsContainer" class="space-y-4"></div>
-
-        <form data-list-type="packing" class="add-item-form flex gap-2 pt-2 border-t-2 border-dashed border-ink">
-          <input type="text" placeholder="新增行李物品（如：英規三腳轉接頭、薄圍巾）..." required
-            class="flex-1 bg-washi border-2 border-ink rounded-xl px-3 py-2 text-sm focus:outline-none focus:bg-yamabuki/20" />
-          <button type="submit" class="ehon-btn bg-mizuiro px-3.5 py-1.5 text-sm font-bold shrink-0">＋新增</button>
-        </form>
-      </div>
+      <!-- 分類卡片網格 -->
+      <div id="checklistCategoriesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
     </section>
 
   </main>
 
-  <!-- 頁尾繪本小插畫（香港波羅油 / 港式點心蒸籠） -->
-  <footer class="max-w-2xl mx-auto px-4 mt-12 text-center space-y-2">
-    <div class="inline-flex items-center gap-3 bg-washi border-[3px] border-ink rounded-full px-5 py-2">
-      <!-- 港式點心蒸籠 SVG -->
-      <svg viewBox="0 0 38 34" class="w-7 h-7" role="img" aria-label="港式點心蒸籠插圖">
-        <rect x="6" y="16" width="26" height="12" rx="3" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
-        <circle cx="14" cy="14" r="5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.2"/>
-        <circle cx="24" cy="14" r="5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.2"/>
-        <circle cx="14" cy="11" r="1.5" fill="#F2A497"/>
-        <circle cx="24" cy="11" r="1.5" fill="#F2A497"/>
+  <!-- 簡潔繪本頁尾 -->
+  <footer class="max-w-3xl mx-auto px-4 mt-10 text-center">
+    <div class="inline-flex items-center gap-2.5 bg-washi border-2 border-ink rounded-full px-4 py-1.5">
+      <svg viewBox="0 0 36 30" class="w-6 h-6" role="img" aria-label="港式點心蒸籠小圖">
+        <rect x="5" y="14" width="26" height="11" rx="3" fill="#F6C85F" stroke="#3E3A39" stroke-width="2"/>
+        <circle cx="13" cy="12" r="4.5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/>
+        <circle cx="23" cy="12" r="4.5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/>
+        <circle cx="13" cy="10" r="1.3" fill="#F28B82"/>
+        <circle cx="23" cy="10" r="1.3" fill="#F28B82"/>
       </svg>
-      <span class="text-xs sm:text-sm font-bold">祝香港跨年旅途愉快・Happy New Year in HK!</span>
+      <span class="text-xs font-bold">香港跨年旅遊 2026–2027</span>
     </div>
   </footer>
 
-  <!-- ========================================================= -->
-  <!-- 繪本風通用編輯彈窗（支援標題、航班、行程新增/編輯、住宿） -->
-  <!-- ========================================================= -->
-  <div id="editorModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"
+  <!-- 通用繪本風編輯彈窗 -->
+  <div id="ehonModal" role="dialog" aria-modal="true" aria-labelledby="ehonModalTitle"
     class="fixed inset-0 z-50 hidden items-center justify-center bg-ink/45 p-4 overflow-y-auto">
-    <div class="ehon-card w-full max-w-md p-5 sm:p-6 my-auto space-y-4 relative animate-[popBounce_0.25s_ease-out]">
-      <div class="flex items-center justify-between border-b-2 border-dashed border-ink pb-3">
-        <h3 id="modalTitle" class="text-lg sm:text-xl font-bold">編輯內容</h3>
-        <button id="closeModalBtn" type="button" aria-label="關閉視窗"
-          class="w-9 h-9 rounded-full bg-coral border-2 border-ink font-bold flex items-center justify-center active:translate-y-0.5">✕</button>
+    <div class="ehon-card w-full max-w-md p-5 my-auto space-y-4 relative anim-pop">
+      <div class="flex items-center justify-between border-b-2 border-dashed border-ink pb-2.5">
+        <h3 id="ehonModalTitle" class="text-lg font-black">編輯</h3>
+        <button id="ehonModalClose" type="button" aria-label="關閉視窗"
+          class="w-8 h-8 rounded-full bg-coral border-2 border-ink font-bold flex items-center justify-center active:translate-y-0.5">✕</button>
       </div>
-      <div id="modalBody" class="space-y-3">
-        <!-- 表單欄位由 JS 動態注入 -->
-      </div>
+      <div id="ehonModalBody"></div>
     </div>
   </div>
 
-  <!-- 輕量級浮動訊息提示框（取代 alert） -->
-  <div id="toastBanner" role="status" aria-live="polite"
+  <!-- 輕量浮動狀態提示 -->
+  <div id="toastBox" role="status" aria-live="polite"
     class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-opacity duration-200">
-    <div class="bg-ink text-washi border-[3px] border-yamabuki rounded-full px-5 py-2.5 text-sm font-bold shadow-lg whitespace-nowrap">
-      <span id="toastMessage">已自動儲存</span>
+    <div class="bg-ink text-washi border-2 border-yamabuki rounded-full px-4 py-2 text-xs sm:text-sm font-bold shadow-md whitespace-nowrap">
+      <span id="toastText">已儲存</span>
     </div>
   </div>
 
   <script>
     // ==========================================
-    // 1. 預設香港跨年自由行資料結構（2026/12/31 - 2027/01/04）
+    // 1. 預設資料結構與 LocalStorage Key
     // ==========================================
-    const STORAGE_KEY_APP = "hk_ehon_trip_data_v1";
-    const STORAGE_KEY_MOTION = "hk_ehon_reduce_motion_v1";
+    const STORAGE_KEY = "hk_newyear_ehon_v2";
 
-    const DEFAULT_TRIP_DATA = {
+    const CATEGORY_TAG_COLORS = {
+      "景點": "bg-coral",
+      "美食": "bg-yamabuki",
+      "交通": "bg-mizuiro",
+      "購物": "bg-wakatake",
+      "住宿": "bg-washi",
+      "其他": "bg-washi"
+    };
+
+    const CARD_ACCENT_COLORS = ["bg-coral", "bg-yamabuki", "bg-mizuiro", "bg-wakatake"];
+
+    const DEFAULT_DATA = {
       hero: {
-        title: "香港跨年散步手帳 2026–2027",
-        subtitle: "維港跨年煙火・百年叮叮車・茶餐廳與太平山慢旅",
+        title: "香港跨年旅遊 2026–2027",
         dateRangeText: "2026/12/31 (四) – 2027/01/04 (一) ・ 5天4夜",
         departureISO: "2026-12-31T08:00"
       },
-      flights: {
-        outbound: {
-          tag: "去程 OUTBOUND",
-          airline: "國泰航空 CX423（點擊編輯可修改）",
+      flights: [
+        {
+          id: "fl-1",
+          direction: "去程",
+          airline: "國泰航空",
+          flightNo: "CX423",
           fromCode: "TPE",
-          fromName: "台灣桃園 / 高雄",
+          fromName: "台北桃園 T1",
+          departDate: "2026/12/31",
           departTime: "08:00",
           toCode: "HKG",
           toName: "香港赤鱲角 T1",
           arriveTime: "09:55",
-          duration: "1h 55m 直飛",
-          dateText: "2026/12/31 (四)",
-          note: "託運行李 23kg・請自行修改班機"
+          bookingRef: "HK2026A",
+          note: "託運行李 23kg・手提 7kg"
         },
-        inbound: {
-          tag: "回程 INBOUND",
-          airline: "國泰航空 CX420（點擊編輯可修改）",
+        {
+          id: "fl-2",
+          direction: "回程",
+          airline: "國泰航空",
+          flightNo: "CX420",
           fromCode: "HKG",
           fromName: "香港赤鱲角 T1",
+          departDate: "2027/01/04",
           departTime: "17:15",
           toCode: "TPE",
-          toName: "台灣桃園 / 高雄",
+          toName: "台北桃園 T1",
           arriveTime: "19:05",
-          duration: "1h 50m 直飛",
-          dateText: "2027/01/04 (一)",
-          note: "建議提早 2.5 小時抵達機場"
+          bookingRef: "HK2026A",
+          note: "建議提前 2.5 小時抵達機場"
         }
-      },
-      // 每日行程預設空白，讓使用者自行新增！
+      ],
       days: [
         {
-          day: 1,
-          shortDate: "12/31",
-          dateLabel: "12/31 (四) 跨年夜",
-          theme: "尚未規劃，點擊上方「編輯主題」填寫 ✨",
-          iconType: "firework",
+          id: "day-1",
+          tabTitle: "Day 1",
+          dateText: "12/31 (四) 跨年夜",
+          theme: "維港跨年煙火與尖沙咀海濱散步",
           events: []
         },
         {
-          day: 2,
-          shortDate: "1/1",
-          dateLabel: "01/01 (五) 元旦",
-          theme: "尚未規劃，點擊上方「編輯主題」填寫 ✨",
-          iconType: "tram",
+          id: "day-2",
+          tabTitle: "Day 2",
+          dateText: "01/01 (五) 元旦",
+          theme: "中環百年叮叮車與太平山夜景",
           events: []
         },
         {
-          day: 3,
-          shortDate: "1/2",
-          dateLabel: "01/02 (六)",
-          theme: "尚未規劃，點擊上方「編輯主題」填寫 ✨",
-          iconType: "ferry",
+          id: "day-3",
+          tabTitle: "Day 3",
+          dateText: "01/02 (六)",
+          theme: "旺角油麻地地道茶餐廳巡禮",
           events: []
         },
         {
-          day: 4,
-          shortDate: "1/3",
-          dateLabel: "01/03 (日)",
-          theme: "尚未規劃，點擊上方「編輯主題」填寫 ✨",
-          iconType: "dimsum",
+          id: "day-4",
+          tabTitle: "Day 4",
+          dateText: "01/03 (日)",
+          theme: "銅鑼灣購物與天星小輪慢旅",
           events: []
         },
         {
-          day: 5,
-          shortDate: "1/4",
-          dateLabel: "01/04 (一) 返程",
-          theme: "尚未規劃，點擊上方「編輯主題」填寫 ✨",
-          iconType: "bag",
+          id: "day-5",
+          tabTitle: "Day 5",
+          dateText: "01/04 (一) 返程",
+          theme: "伴手禮採買與前往香港機場",
           events: []
         }
       ],
-      hotel: {
-        badge: "連住 4 晚・2026/12/31 – 2027/01/04",
-        name: "尚未填寫飯店名稱（點擊右上角編輯）",
-        area: "建議區域：尖沙咀 / 銅鑼灣 / 中環上環",
-        checkIn: "2026/12/31 (四) 15:00 後",
-        checkOut: "2027/01/04 (一) 11:00 前",
-        address: "香港九龍尖沙咀（請點擊編輯填寫實際地址）",
-        bookingCode: "待填寫訂房代號",
-        note: "可從香港機場搭乘「機場快線」或「城巴 A21 / A11」直達市區飯店。"
-      },
-      checklists: {
-        todo: [
-          { id: "hk-td-1", text: "辦理「台灣居民預辦入境登記」（免費上網列印）或確認台胞證效期", done: false },
-          { id: "hk-td-2", text: "購買香港 5 日 eSIM / 漫遊卡", done: false },
-          { id: "hk-td-3", text: "下載「旅客八達通 App」或準備實體八達通卡", done: false },
-          { id: "hk-td-4", text: "兌換港幣現鈔（多換 $20、$50、$100 小鈔，茶餐廳較好用）", done: false },
-          { id: "hk-td-5", text: "預約 12/31 跨年晚餐餐廳或太平山山頂纜車車票", done: false }
-        ],
-        beforeLeave: [
-          { id: "hk-bl-1", text: "確認護照 ＋ 紙本預辦入境登記通知書（或台胞證）已帶齊", done: false },
-          { id: "hk-bl-2", text: "關閉家中瓦斯、不必要電源與拔除插頭", done: false },
-          { id: "hk-bl-3", text: "清理冰箱易腐敗食物並倒掉垃圾", done: false },
-          { id: "hk-bl-4", text: "檢查行動電源是否充飽電（務必放隨身行李，不可託運）", done: false }
-        ],
-        packing: [
-          { id: "hk-pk-1", category: "重要證件與港幣", text: "護照 ＋ 預辦入境登記列印紙本（或台胞證）", done: false },
-          { id: "hk-pk-2", category: "重要證件與港幣", text: "港幣現鈔 ＋ 海外高回饋信用卡（支援感應支付）", done: false },
-          { id: "hk-pk-3", category: "3C 與轉接頭", text: "英規三腳（大三腳）萬國轉接頭（香港電壓 220V）", done: false },
-          { id: "hk-pk-4", category: "3C 與轉接頭", text: "手機充電線 ＋ 多孔快充頭 ＋ 行動電源", done: false },
-          { id: "hk-pk-5", category: "12月底香港洋蔥穿搭", text: "防風外套 / 針織開襟衫（香港跨年約 14°C–20°C，海邊風較涼）", done: false },
-          { id: "hk-pk-6", category: "12月底香港洋蔥穿搭", text: "長袖上衣、長褲與超好走的休閒鞋（香港非常需要步行！）", done: false },
-          { id: "hk-pk-7", category: "隨身小物與藥品", text: "隨身面紙與濕紙巾（部分香港茶餐廳不免費提供紙巾）", done: false },
-          { id: "hk-pk-8", category: "隨身小物與藥品", text: "腸胃藥、暈船藥（搭天星小輪可用）、OK繃與環保購物袋", done: false }
-        ]
-      }
+      hotels: [
+        {
+          id: "ht-1",
+          dateRange: "2026/12/31 – 2027/01/02 (2晚)",
+          name: "尖沙咀海濱精品酒店（範例・可修改或新增多間）",
+          roomType: "雙人標準客房・含早餐",
+          address: "香港九龍尖沙咀彌敦道",
+          bookingRef: "HTL-1231",
+          note: "15:00 入住 / 11:00 退房・近尖沙咀站出口"
+        }
+      ],
+      checklistCategories: [
+        {
+          id: "cat-1",
+          title: "證件錢包與網路",
+          color: "bg-coral",
+          items: [
+            { id: "it-1", text: "護照 ＋ 台灣居民預辦入境登記列印紙本（或台胞證）", done: false },
+            { id: "it-2", text: "港幣現鈔（多準備 $20 / $50 / $100 小鈔）", done: false },
+            { id: "it-3", text: "香港 5 日 eSIM / 實體上網卡", done: false },
+            { id: "it-4", text: "旅客八達通 App 或實體八達通卡", done: false }
+          ]
+        },
+        {
+          id: "cat-2",
+          title: "衣物穿搭（12月底冬季）",
+          color: "bg-yamabuki",
+          items: [
+            { id: "it-5", text: "防風保暖外套（維港海邊跨年風較大）", done: false },
+            { id: "it-6", text: "長袖上衣 / 針織衫 4–5 套", done: false },
+            { id: "it-7", text: "好走耐穿的休閒球鞋", done: false }
+          ]
+        },
+        {
+          id: "cat-3",
+          title: "電子產品與轉接頭",
+          color: "bg-mizuiro",
+          items: [
+            { id: "it-8", text: "英規三腳（大三腳）萬國轉接頭（香港 220V）", done: false },
+            { id: "it-9", text: "行動電源（務必放隨身手提行李）＋ 充電線", done: false }
+          ]
+        },
+        {
+          id: "cat-4",
+          title: "伴手禮採買清單",
+          color: "bg-wakatake",
+          items: [
+            { id: "it-10", text: "珍妮曲奇小熊餅乾 / 蛋捲", done: false },
+            { id: "it-11", text: "檸檬王甘草檸檬", done: false }
+          ]
+        }
+      ]
     };
-
-    // 交通方式標籤配色對照
-    const TRANSPORT_STYLES = {
-      "港鐵 MTR": "bg-coral",
-      "叮叮車": "bg-wakatake",
-      "天星小輪": "bg-mizuiro",
-      "巴士 / 小巴": "bg-yamabuki",
-      "機場快線": "bg-mizuiro",
-      "太平山纜車": "bg-coral",
-      "步行散步": "bg-wakatake",
-      "的士計程車": "bg-yamabuki"
-    };
-
-    // 每日小圖示 SVG 對照
-    const DAY_ICONS = {
-      firework: `<svg viewBox="0 0 40 40" class="w-8 h-8"><path d="M20 5 L23 15 L33 18 L23 21 L20 31 L17 21 L7 18 L17 15 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/><circle cx="31" cy="9" r="2.5" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/></svg>`,
-      tram: `<svg viewBox="0 0 40 40" class="w-8 h-8"><rect x="10" y="9" width="20" height="23" rx="5" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/><rect x="13" y="13" width="14" height="6" rx="1.5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/><line x1="10" y1="22" x2="30" y2="22" stroke="#F6D27A" stroke-width="3"/><circle cx="15" cy="33" r="2.5" fill="#3E3A39"/><circle cx="25" cy="33" r="2.5" fill="#3E3A39"/></svg>`,
-      ferry: `<svg viewBox="0 0 40 40" class="w-8 h-8"><rect x="12" y="12" width="16" height="7" rx="2" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.2"/><path d="M6 19 L34 19 L30 28 L10 28 Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/><path d="M5 32 Q12 29 20 32 T35 32" fill="none" stroke="#A8D3E6" stroke-width="3" stroke-linecap="round"/></svg>`,
-      dimsum: `<svg viewBox="0 0 40 40" class="w-8 h-8"><rect x="7" y="19" width="26" height="12" rx="3" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/><circle cx="15" cy="16" r="5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.2"/><circle cx="25" cy="16" r="5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.2"/></svg>`,
-      bag: `<svg viewBox="0 0 40 40" class="w-8 h-8"><rect x="9" y="14" width="22" height="18" rx="5" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/><path d="M15 14 L15 9 L25 9 L25 14" fill="none" stroke="#3E3A39" stroke-width="2.5"/></svg>`
-    };
-
-    let appState = loadAppState();
-    let currentDayIndex = 0;
 
     // ==========================================
-    // 2. 內建純 JS 輕量 LZW + Base64URL 壓縮編解碼（支援完整繁體中文，零外部依賴）
+    // 2. 純 JS LZW + Base64URL 壓縮編解碼（支援 UTF-8 繁體中文）
     // ==========================================
     function lzwCompressToBase64Url(uncompressedStr) {
       const utf8Bytes = new TextEncoder().encode(uncompressedStr);
@@ -760,9 +659,7 @@
           w = c;
         }
       }
-      if (w !== "") {
-        codes.push(dict.get(w));
-      }
+      if (w !== "") codes.push(dict.get(w));
 
       const uint16Arr = new Uint16Array(codes);
       const byteArr = new Uint8Array(uint16Arr.buffer);
@@ -776,9 +673,8 @@
 
     function lzwDecompressFromBase64Url(base64UrlStr) {
       let b64 = base64UrlStr.replace(/-/g, "+").replace(/_/g, "/");
-      while (b64.length % 4 !== 0) {
-        b64 += "=";
-      }
+      while (b64.length % 4 !== 0) b64 += "=";
+
       const binary = atob(b64);
       const byteArr = new Uint8Array(binary.length);
       for (let i = 0; i < binary.length; i++) {
@@ -803,7 +699,7 @@
         } else if (k === dictSize) {
           entry = w + w.charAt(0);
         } else {
-          throw new Error("無效的壓縮代碼");
+          throw new Error("Invalid LZW code");
         }
         result += entry;
         if (dictSize < 65535) {
@@ -819,397 +715,421 @@
       return new TextDecoder().decode(outBytes);
     }
 
-    function isValidTripStructure(data) {
+    function isValidTripData(obj) {
       return Boolean(
-        data &&
-        typeof data === "object" &&
-        data.hero &&
-        data.flights &&
-        Array.isArray(data.days) &&
-        data.hotel &&
-        data.checklists
+        obj &&
+        typeof obj === "object" &&
+        obj.hero &&
+        Array.isArray(obj.flights) &&
+        Array.isArray(obj.days) &&
+        Array.isArray(obj.hotels) &&
+        Array.isArray(obj.checklistCategories)
       );
     }
 
-    let syncedFromUrlBanner = false;
+    let syncedFromHash = false;
 
-    function loadAppState() {
-      // 1. 優先檢查網址是否帶有 #trip= 分享資料
+    function loadState() {
+      // 1. 偵測網址列 #trip= 分享參數
       try {
         const hash = window.location.hash || "";
         if (hash.startsWith("#trip=") && hash.length > 6) {
-          const encoded = hash.slice(6);
-          const jsonStr = lzwDecompressFromBase64Url(encoded);
-          const sharedData = JSON.parse(jsonStr);
-          if (isValidTripStructure(sharedData)) {
-            localStorage.setItem(STORAGE_KEY_APP, JSON.stringify(sharedData));
-            // 清除網址列長參數，保持網址乾淨清爽
+          const decodedJson = lzwDecompressFromBase64Url(hash.slice(6));
+          const parsed = JSON.parse(decodedJson);
+          if (isValidTripData(parsed)) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
             if (window.history && window.history.replaceState) {
               window.history.replaceState(null, "", window.location.pathname + window.location.search);
             }
-            syncedFromUrlBanner = true;
-            return sharedData;
-          }
-        }
-      } catch (e) {
-        console.warn("解析分享網址失敗，改讀取本機資料", e);
-      }
-
-      // 2. 讀取本機瀏覽器紀錄
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY_APP);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          if (isValidTripStructure(parsed)) {
+            syncedFromHash = true;
             return parsed;
           }
         }
-      } catch (e) {
-        console.warn("讀取設定失敗，使用預設香港跨年資料", e);
-      }
-      return JSON.parse(JSON.stringify(DEFAULT_TRIP_DATA));
-    }
-
-    function copyTextSafely(text) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        return navigator.clipboard.writeText(text).catch(() => fallbackExecCopy(text));
-      }
-      return Promise.resolve(fallbackExecCopy(text));
-    }
-
-    function fallbackExecCopy(text) {
-      const tempInput = document.createElement("textarea");
-      tempInput.value = text;
-      tempInput.style.position = "fixed";
-      tempInput.style.opacity = "0";
-      document.body.appendChild(tempInput);
-      tempInput.focus();
-      tempInput.select();
-      let ok = false;
-      try {
-        ok = document.execCommand("copy");
       } catch (err) {
-        ok = false;
+        console.warn("分享網址解析失敗", err);
       }
-      document.body.removeChild(tempInput);
-      return ok;
-    }
 
-    function handleGenerateShareUrl() {
+      // 2. 讀取 localStorage
       try {
-        const jsonStr = JSON.stringify(appState);
-        const compressed = lzwCompressToBase64Url(jsonStr);
-        const baseUrl = window.location.origin + window.location.pathname;
-        const shareUrl = `${baseUrl}#trip=${compressed}`;
-
-        copyTextSafely(shareUrl).then((copied) => {
-          if (copied !== false) {
-            showToast("已複製最新行程網址！傳給手機或旅伴點開就能同步 ✨");
-          }
-          openModal("🔗 分享最新行程網址", `
-            <div class="space-y-3 text-sm">
-              <p class="leading-relaxed">已將您目前所有的<strong>航班、每日行程、住宿與清單</strong>打包進這條專屬網址！傳到 LINE 給手機或旅伴，點開就會自動載入最新進度：</p>
-              <textarea id="shareUrlTextarea" rows="3" readonly class="ehon-input text-xs break-all bg-yamabuki/20">${escapeHtml(shareUrl)}</textarea>
-              <div class="flex justify-end gap-2 pt-1">
-                <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-2 font-bold">關閉</button>
-                <button type="button" id="modalCopyShareUrlBtn" class="ehon-btn bg-yamabuki px-5 py-2 font-bold">📋 再複製一次</button>
-              </div>
-            </div>
-          `);
-          const ta = document.getElementById("shareUrlTextarea");
-          if (ta) ta.select();
-          const btn = document.getElementById("modalCopyShareUrlBtn");
-          if (btn) {
-            btn.addEventListener("click", () => {
-              ta.select();
-              fallbackExecCopy(shareUrl);
-              showToast("已複製最新行程網址！✨");
-            });
-          }
-        });
-      } catch (err) {
-        showToast("產生分享網址時發生錯誤，請改用匯出備份檔");
-      }
-    }
-
-    function handleExportJson() {
-      try {
-        const jsonStr = JSON.stringify(appState, null, 2);
-        const blob = new Blob([jsonStr], { type: "application/json;charset=utf-8" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        const today = new Date().toISOString().slice(0, 10);
-        a.href = url;
-        a.download = `hk_trip_backup_${today}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        showToast("已下載行程備份檔 (.json) 💾");
-      } catch (e) {
-        showToast("匯出備份檔失敗");
-      }
-    }
-
-    function handleImportJsonFile(file) {
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        try {
-          const parsed = JSON.parse(event.target.result);
-          if (!isValidTripStructure(parsed)) {
-            showToast("檔案格式不符，請選擇正確的旅遊手帳備份檔");
-            return;
-          }
-          appState = parsed;
-          currentDayIndex = 0;
-          saveAppState("已成功匯入並同步備份行程！🎉");
-          renderAll();
-        } catch (err) {
-          showToast("讀取檔案失敗，請確認為有效的 JSON 備份檔");
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (isValidTripData(parsed)) return parsed;
         }
-      };
-      reader.readAsText(file, "UTF-8");
+      } catch (err) {
+        console.warn("讀取 localStorage 失敗", err);
+      }
+
+      return JSON.parse(JSON.stringify(DEFAULT_DATA));
     }
 
-    function saveAppState(toastMsg = "已自動儲存至手帳") {
+    let state = loadState();
+    let activeMainTab = "itinerary";
+    let activeDayIndex = 0;
+
+    function saveState(msg = "已自動儲存") {
       try {
-        localStorage.setItem(STORAGE_KEY_APP, JSON.stringify(appState));
-        if (toastMsg) showToast(toastMsg);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        if (msg) showToast(msg);
       } catch (e) {
         console.warn("儲存失敗", e);
       }
     }
 
-    let toastTimer = null;
-    function showToast(msg) {
-      const banner = document.getElementById("toastBanner");
-      const textEl = document.getElementById("toastMessage");
-      textEl.textContent = msg;
-      banner.classList.remove("opacity-0");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        banner.classList.add("opacity-0");
-      }, 2100);
+    // ==========================================
+    // 3. 工具函式：Toast 提示、Modal、Clipboard
+    // ==========================================
+    let toastTimeout = null;
+    function showToast(text) {
+      const box = document.getElementById("toastBox");
+      document.getElementById("toastText").textContent = text;
+      box.classList.remove("opacity-0");
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => box.classList.add("opacity-0"), 2200);
     }
 
-    function escapeHtml(str) {
-      if (str === null || str === undefined) return "";
-      return String(str)
+    function escapeHtml(val) {
+      if (val === null || val === undefined) return "";
+      return String(val)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;");
     }
 
-    // ==========================================
-    // 3. 通用繪本彈窗控制
-    // ==========================================
-    const modalEl = document.getElementById("editorModal");
-    const modalTitleEl = document.getElementById("modalTitle");
-    const modalBodyEl = document.getElementById("modalBody");
+    const modalOverlay = document.getElementById("ehonModal");
+    const modalTitleEl = document.getElementById("ehonModalTitle");
+    const modalBodyEl = document.getElementById("ehonModalBody");
 
-    function openModal(title, innerHtml) {
+    function openModal(title, htmlContent) {
       modalTitleEl.textContent = title;
-      modalBodyEl.innerHTML = innerHtml;
-      modalEl.classList.remove("hidden");
-      modalEl.classList.add("flex");
+      modalBodyEl.innerHTML = htmlContent;
+      modalOverlay.classList.remove("hidden");
+      modalOverlay.classList.add("flex");
     }
 
     function closeModal() {
-      modalEl.classList.add("hidden");
-      modalEl.classList.remove("flex");
+      modalOverlay.classList.add("hidden");
+      modalOverlay.classList.remove("flex");
       modalBodyEl.innerHTML = "";
     }
 
-    document.getElementById("closeModalBtn").addEventListener("click", closeModal);
-    modalEl.addEventListener("click", (e) => {
-      if (e.target === modalEl) closeModal();
+    document.getElementById("ehonModalClose").addEventListener("click", closeModal);
+    modalOverlay.addEventListener("click", (e) => {
+      if (e.target === modalOverlay) closeModal();
     });
 
+    function copyToClipboard(text) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      let ok = false;
+      try {
+        ok = document.execCommand("copy");
+      } catch (e) {
+        ok = false;
+      }
+      document.body.removeChild(ta);
+      return ok;
+    }
+
     // ==========================================
-    // 4. 首頁標題、日期與倒數計時器
+    // 4. 頂部標題、倒數計時 & 跨裝置分享匯出入
     // ==========================================
     function renderHero() {
-      document.getElementById("heroTitleDisplay").textContent = appState.hero.title;
-      document.getElementById("heroSubtitleDisplay").textContent = appState.hero.subtitle;
-      document.getElementById("tripDateRangeDisplay").textContent = appState.hero.dateRangeText;
+      document.getElementById("heroTitleDisplay").textContent = state.hero.title;
+      document.getElementById("tripDateRangeDisplay").textContent = state.hero.dateRangeText;
       updateCountdown();
     }
 
     function updateCountdown() {
-      const targetTs = new Date(appState.hero.departureISO).getTime();
-      const now = Date.now();
-      const diff = targetTs - now;
+      const target = new Date(state.hero.departureISO).getTime();
+      const diff = target - Date.now();
+      const dEl = document.getElementById("cd-days");
+      const hEl = document.getElementById("cd-hours");
+      const mEl = document.getElementById("cd-mins");
+      const sEl = document.getElementById("cd-secs");
+      const labelEl = document.getElementById("countdownStatusLabel");
 
-      const daysEl = document.getElementById("cd-days");
-      const hoursEl = document.getElementById("cd-hours");
-      const minsEl = document.getElementById("cd-mins");
-      const secsEl = document.getElementById("cd-secs");
-      const statusLabel = document.getElementById("countdownStatusLabel");
-
-      if (isNaN(targetTs) || diff <= 0) {
-        statusLabel.textContent = "香港跨年旅程進行中 / 已出發！";
-        daysEl.textContent = "00";
-        hoursEl.textContent = "00";
-        minsEl.textContent = "00";
-        secsEl.textContent = "00";
+      if (isNaN(target) || diff <= 0) {
+        labelEl.textContent = "香港跨年旅程進行中 / 已出發！";
+        dEl.textContent = "00";
+        hEl.textContent = "00";
+        mEl.textContent = "00";
+        sEl.textContent = "00";
         return;
       }
 
-      statusLabel.textContent = "距離跨年出發還有";
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      const secs = Math.floor((diff / 1000) % 60);
-
-      daysEl.textContent = String(days).padStart(2, "0");
-      hoursEl.textContent = String(hours).padStart(2, "0");
-      minsEl.textContent = String(mins).padStart(2, "0");
-      secsEl.textContent = String(secs).padStart(2, "0");
+      labelEl.textContent = "距離 2026/12/31 跨年出發還有";
+      dEl.textContent = String(Math.floor(diff / 86400000)).padStart(2, "0");
+      hEl.textContent = String(Math.floor((diff / 3600000) % 24)).padStart(2, "0");
+      mEl.textContent = String(Math.floor((diff / 60000) % 60)).padStart(2, "0");
+      sEl.textContent = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
     }
 
-    function openHeroEditModal() {
-      const h = appState.hero;
-      openModal("編輯手帳標題與出發日期", `
-        <form id="heroEditForm" class="space-y-3 text-sm">
+    function openHeroModal() {
+      const h = state.hero;
+      openModal("編輯標題與倒數時間", `
+        <form id="heroForm" class="space-y-3 text-sm">
           <div>
-            <label class="block font-bold mb-1">手帳主標題</label>
+            <label class="block font-bold mb-1">標題名稱</label>
             <input type="text" name="title" value="${escapeHtml(h.title)}" class="ehon-input" required />
           </div>
           <div>
-            <label class="block font-bold mb-1">副標題小語</label>
-            <input type="text" name="subtitle" value="${escapeHtml(h.subtitle)}" class="ehon-input" />
-          </div>
-          <div>
-            <label class="block font-bold mb-1">顯示日期區間文字</label>
+            <label class="block font-bold mb-1">日期區間顯示文字</label>
             <input type="text" name="dateRangeText" value="${escapeHtml(h.dateRangeText)}" class="ehon-input" required />
           </div>
           <div>
-            <label class="block font-bold mb-1">倒數計時目標時間（出發起飛時間）</label>
+            <label class="block font-bold mb-1">倒數計時目標時間</label>
             <input type="datetime-local" name="departureISO" value="${escapeHtml(h.departureISO)}" class="ehon-input" required />
           </div>
           <div class="pt-2 flex justify-end gap-2">
-            <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-2 font-bold">取消</button>
-            <button type="submit" class="ehon-btn bg-yamabuki px-5 py-2 font-bold">儲存變更</button>
+            <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-1.5 font-bold">取消</button>
+            <button type="submit" class="ehon-btn bg-yamabuki px-5 py-1.5 font-bold">儲存</button>
           </div>
         </form>
       `);
-
-      document.getElementById("heroEditForm").addEventListener("submit", (e) => {
+      document.getElementById("heroForm").addEventListener("submit", (e) => {
         e.preventDefault();
         const fd = new FormData(e.target);
-        appState.hero.title = fd.get("title").trim();
-        appState.hero.subtitle = fd.get("subtitle").trim();
-        appState.hero.dateRangeText = fd.get("dateRangeText").trim();
-        appState.hero.departureISO = fd.get("departureISO");
-        saveAppState("已更新手帳標題與出發日期！");
+        state.hero.title = fd.get("title").trim();
+        state.hero.dateRangeText = fd.get("dateRangeText").trim();
+        state.hero.departureISO = fd.get("departureISO");
+        saveState("已更新標題與時間");
         renderHero();
         closeModal();
       });
     }
 
+    function handleShareUrl() {
+      try {
+        const compressed = lzwCompressToBase64Url(JSON.stringify(state));
+        const shareUrl = `${window.location.origin}${window.location.pathname}#trip=${compressed}`;
+        const copied = copyToClipboard(shareUrl);
+        if (copied) showToast("已複製最新行程網址！傳給旅伴點開即可同步 ✨");
+
+        openModal("🔗 最新行程分享網址", `
+          <div class="space-y-3 text-sm">
+            <textarea id="shareUrlBox" rows="3" readonly class="ehon-input text-xs break-all bg-yamabuki/20">${escapeHtml(shareUrl)}</textarea>
+            <div class="flex justify-end gap-2">
+              <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-1.5 font-bold">關閉</button>
+              <button type="button" id="copyShareAgainBtn" class="ehon-btn bg-yamabuki px-4 py-1.5 font-bold">📋 複製網址</button>
+            </div>
+          </div>
+        `);
+        const box = document.getElementById("shareUrlBox");
+        box.select();
+        document.getElementById("copyShareAgainBtn").addEventListener("click", () => {
+          box.select();
+          copyToClipboard(shareUrl);
+          showToast("已複製最新行程網址 ✨");
+        });
+      } catch (e) {
+        showToast("產生分享網址失敗");
+      }
+    }
+
+    function handleExportJson() {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `hk_trip_${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("已匯出備份檔 💾");
+    }
+
+    function handleImportJson(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (!isValidTripData(parsed)) {
+            showToast("檔案格式不正確");
+            return;
+          }
+          state = parsed;
+          activeDayIndex = 0;
+          saveState("已成功匯入還原行程 🎉");
+          renderAll();
+        } catch (err) {
+          showToast("讀取 JSON 檔案失敗");
+        }
+      };
+      reader.readAsText(file, "UTF-8");
+    }
+
     // ==========================================
-    // 5. 航班資訊渲染與自由編輯
+    // 5. 主要 4 分頁切換控制
+    // ==========================================
+    function switchMainTab(tabName) {
+      activeMainTab = tabName;
+      document.querySelectorAll(".tab-panel").forEach((el) => el.classList.add("hidden"));
+      const targetPanel = document.getElementById(`panel-${tabName}`);
+      if (targetPanel) targetPanel.classList.remove("hidden");
+
+      document.querySelectorAll(".main-tab-btn").forEach((btn) => {
+        const isCurrent = btn.getAttribute("data-tab") === tabName;
+        btn.classList.toggle("bg-yamabuki", isCurrent);
+        btn.classList.toggle("bg-washi", !isCurrent);
+      });
+    }
+
+    // ==========================================
+    // 6. 分頁 1：航班資訊（自由增刪改多張航班）
     // ==========================================
     function renderFlights() {
-      const grid = document.getElementById("flightsGrid");
-      grid.innerHTML = "";
+      const container = document.getElementById("flightsList");
+      container.innerHTML = "";
 
-      const flightConfigs = [
-        { key: "outbound", pillBg: "bg-mizuiro", planeFill: "#F2A497", timeLeftBg: "bg-yamabuki/60", timeRightBg: "bg-mizuiro/60" },
-        { key: "inbound", pillBg: "bg-coral", planeFill: "#A8D3E6", timeLeftBg: "bg-coral/50", timeRightBg: "bg-wakatake/70" }
-      ];
+      if (state.flights.length === 0) {
+        container.innerHTML = `
+          <div class="ehon-card p-6 text-center space-y-3">
+            <p class="font-bold text-sm">目前還沒有航班卡片，點擊右上角「＋ 新增航班」加入吧！</p>
+          </div>
+        `;
+        return;
+      }
 
-      flightConfigs.forEach((cfg) => {
-        const f = appState.flights[cfg.key];
-        const article = document.createElement("article");
-        article.className = "ehon-card p-4 sm:p-5 relative overflow-hidden";
-        article.innerHTML = `
+      state.flights.forEach((f, idx) => {
+        const isOutbound = f.direction === "去程";
+        const pillColor = isOutbound ? "bg-mizuiro" : (f.direction === "回程" ? "bg-coral" : "bg-yamabuki");
+        const planeColor = isOutbound ? "#F28B82" : "#8ECAE6";
+
+        const card = document.createElement("article");
+        card.className = "ehon-card p-4 sm:p-5 relative overflow-hidden";
+        card.innerHTML = `
           <div class="ticket-notch-left" aria-hidden="true"></div>
           <div class="ticket-notch-right" aria-hidden="true"></div>
 
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <span class="ehon-pill ${cfg.pillBg} px-3 py-0.5 text-xs font-bold">${escapeHtml(f.tag)}</span>
-            <button type="button" data-flight-key="${cfg.key}"
-              class="edit-flight-btn bg-washi hover:bg-yamabuki border-2 border-ink rounded-full px-2.5 py-0.5 text-xs font-bold transition-colors">
-              ✎ 編輯航班
-            </button>
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="ehon-pill ${pillColor} px-3 py-0.5 text-xs font-bold">${escapeHtml(f.direction)}</span>
+              <span class="text-sm font-black">${escapeHtml(f.airline)} ${escapeHtml(f.flightNo)}</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button type="button" data-idx="${idx}" class="edit-flight-btn bg-washi hover:bg-yamabuki border-2 border-ink rounded-full px-2.5 py-0.5 text-xs font-bold">✎ 編輯</button>
+              <button type="button" data-idx="${idx}" class="del-flight-btn bg-washi hover:bg-coral border-2 border-ink rounded-full px-2.5 py-0.5 text-xs font-bold">✕</button>
+            </div>
           </div>
 
-          <div class="text-xs font-bold text-ink/85 mb-2 truncate">${escapeHtml(f.airline)}</div>
-
-          <div class="flex items-center justify-between my-3 px-1">
+          <div class="flex items-center justify-between my-2 px-1">
             <div>
-              <div class="text-2xl font-bold">${escapeHtml(f.fromCode)}</div>
-              <div class="text-xs max-w-[92px] truncate">${escapeHtml(f.fromName)}</div>
-              <div class="text-base font-bold mt-1 ${cfg.timeLeftBg} px-2 py-0.5 rounded-lg border-2 border-ink inline-block">${escapeHtml(f.departTime)}</div>
+              <div class="text-2xl font-black">${escapeHtml(f.fromCode)}</div>
+              <div class="text-xs font-bold text-ink/80">${escapeHtml(f.fromName)}</div>
+              <div class="mt-1 inline-block bg-yamabuki/60 border-2 border-ink rounded-lg px-2 py-0.5 text-sm font-black">${escapeHtml(f.departTime)}</div>
             </div>
 
-            <!-- Q版小飛機 SVG -->
-            <div class="flex flex-col items-center px-1">
-              <svg viewBox="0 0 90 42" class="w-16 sm:w-20 h-9 anim-ferry" role="img" aria-label="Q版飛機插圖">
-                <path d="M12 24 L26 24 L42 10 L50 10 L41 24 L65 24 L72 17 L78 17 L74 26 L78 31 L72 31 L65 28 L41 28 L50 37 L42 37 L26 28 L12 28 C8 28, 8 24, 12 24 Z"
-                  fill="${cfg.planeFill}" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/>
-                <circle cx="24" cy="26" r="1.5" fill="#FFFCF6"/>
-                <circle cx="31" cy="26" r="1.5" fill="#FFFCF6"/>
-                <circle cx="38" cy="26" r="1.5" fill="#FFFCF6"/>
+            <div class="flex flex-col items-center px-2">
+              <svg viewBox="0 0 90 36" class="w-16 sm:w-20 h-8" role="img" aria-label="飛機插圖">
+                <path d="M12 20 L26 20 L42 7 L49 7 L41 20 L65 20 L72 14 L78 14 L74 22 L78 27 L72 27 L65 24 L41 24 L49 32 L42 32 L26 24 L12 24 C8 24, 8 20, 12 20 Z"
+                  fill="${planeColor}" stroke="#3E3A39" stroke-width="2.2" stroke-linejoin="round"/>
               </svg>
-              <span class="text-[11px] font-bold text-ink/80">${escapeHtml(f.duration)}</span>
+              <span class="text-[11px] font-bold">${escapeHtml(f.departDate)}</span>
             </div>
 
             <div class="text-right">
-              <div class="text-2xl font-bold">${escapeHtml(f.toCode)}</div>
-              <div class="text-xs max-w-[92px] truncate">${escapeHtml(f.toName)}</div>
-              <div class="text-base font-bold mt-1 ${cfg.timeRightBg} px-2 py-0.5 rounded-lg border-2 border-ink inline-block">${escapeHtml(f.arriveTime)}</div>
+              <div class="text-2xl font-black">${escapeHtml(f.toCode)}</div>
+              <div class="text-xs font-bold text-ink/80">${escapeHtml(f.toName)}</div>
+              <div class="mt-1 inline-block bg-wakatake/65 border-2 border-ink rounded-lg px-2 py-0.5 text-sm font-black">${escapeHtml(f.arriveTime)}</div>
             </div>
           </div>
 
-          <div class="border-t-2 border-dashed border-ink pt-2.5 mt-2 flex flex-wrap justify-between gap-1 text-xs font-bold">
-            <span>${escapeHtml(f.dateText)}</span>
+          <div class="border-t-2 border-dashed border-ink pt-2.5 mt-2 flex flex-wrap items-center justify-between gap-2 text-xs font-bold">
+            <span>🔖 訂位代號：<span class="bg-yamabuki/70 border border-ink rounded px-1.5 py-0.5">${escapeHtml(f.bookingRef || "未填寫")}</span></span>
             <span class="text-ink/80">${escapeHtml(f.note)}</span>
           </div>
         `;
-        grid.appendChild(article);
+        container.appendChild(card);
       });
 
       document.querySelectorAll(".edit-flight-btn").forEach((btn) => {
+        btn.addEventListener("click", () => openFlightModal(Number(btn.getAttribute("data-idx"))));
+      });
+      document.querySelectorAll(".del-flight-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          openFlightEditModal(btn.getAttribute("data-flight-key"));
+          state.flights.splice(Number(btn.getAttribute("data-idx")), 1);
+          saveState("已刪除航班");
+          renderFlights();
         });
       });
     }
 
-    function openFlightEditModal(key) {
-      const f = appState.flights[key];
-      const label = key === "outbound" ? "去程航班" : "回程航班";
-      openModal(`編輯${label}資訊`, `
-        <form id="flightEditForm" class="space-y-3 text-sm">
-          <div>
-            <label class="block font-bold mb-1">航空公司與班機代號</label>
-            <input type="text" name="airline" value="${escapeHtml(f.airline)}" placeholder="例如：國泰航空 CX423 / 長榮 BR845" class="ehon-input" required />
+    function openFlightModal(editIdx = null) {
+      const isEdit = editIdx !== null && state.flights[editIdx];
+      const f = isEdit
+        ? state.flights[editIdx]
+        : {
+            direction: "去程",
+            airline: "",
+            flightNo: "",
+            fromCode: "TPE",
+            fromName: "台北桃園 T1",
+            departDate: "2026/12/31",
+            departTime: "08:00",
+            toCode: "HKG",
+            toName: "香港赤鱲角 T1",
+            arriveTime: "10:00",
+            bookingRef: "",
+            note: ""
+          };
+
+      openModal(isEdit ? "編輯航班資訊" : "新增航班資訊", `
+        <form id="flightForm" class="space-y-3 text-sm">
+          <div class="grid grid-cols-3 gap-2">
+            <div>
+              <label class="block font-bold mb-1">航段類型</label>
+              <select name="direction" class="ehon-input">
+                <option value="去程" ${f.direction === "去程" ? "selected" : ""}>去程</option>
+                <option value="回程" ${f.direction === "回程" ? "selected" : ""}>回程</option>
+                <option value="轉機" ${f.direction === "轉機" ? "selected" : ""}>轉機</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-bold mb-1">航空公司</label>
+              <input type="text" name="airline" value="${escapeHtml(f.airline)}" placeholder="國泰航空" class="ehon-input" required />
+            </div>
+            <div>
+              <label class="block font-bold mb-1">航班編號</label>
+              <input type="text" name="flightNo" value="${escapeHtml(f.flightNo)}" placeholder="CX423" class="ehon-input uppercase" required />
+            </div>
           </div>
-          <div class="grid grid-cols-2 gap-2.5">
+
+          <div class="grid grid-cols-2 gap-2">
             <div>
               <label class="block font-bold mb-1">出發機場代碼</label>
-              <input type="text" name="fromCode" value="${escapeHtml(f.fromCode)}" placeholder="TPE / KHH" class="ehon-input uppercase" required />
+              <input type="text" name="fromCode" value="${escapeHtml(f.fromCode)}" placeholder="TPE" class="ehon-input uppercase" required />
             </div>
             <div>
-              <label class="block font-bold mb-1">出發機場名稱</label>
-              <input type="text" name="fromName" value="${escapeHtml(f.fromName)}" placeholder="台北桃園 / 高雄小港" class="ehon-input" required />
+              <label class="block font-bold mb-1">出發機場 / 航廈</label>
+              <input type="text" name="fromName" value="${escapeHtml(f.fromName)}" placeholder="台北桃園 T1" class="ehon-input" required />
             </div>
           </div>
-          <div class="grid grid-cols-2 gap-2.5">
+
+          <div class="grid grid-cols-2 gap-2">
             <div>
               <label class="block font-bold mb-1">抵達機場代碼</label>
               <input type="text" name="toCode" value="${escapeHtml(f.toCode)}" placeholder="HKG" class="ehon-input uppercase" required />
             </div>
             <div>
-              <label class="block font-bold mb-1">抵達機場名稱</label>
+              <label class="block font-bold mb-1">抵達機場 / 航廈</label>
               <input type="text" name="toName" value="${escapeHtml(f.toName)}" placeholder="香港赤鱲角 T1" class="ehon-input" required />
             </div>
           </div>
+
           <div class="grid grid-cols-3 gap-2">
+            <div>
+              <label class="block font-bold mb-1">飛行日期</label>
+              <input type="text" name="departDate" value="${escapeHtml(f.departDate)}" placeholder="2026/12/31" class="ehon-input" required />
+            </div>
             <div>
               <label class="block font-bold mb-1">起飛時間</label>
               <input type="time" name="departTime" value="${escapeHtml(f.departTime)}" class="ehon-input" required />
@@ -1218,731 +1138,794 @@
               <label class="block font-bold mb-1">抵達時間</label>
               <input type="time" name="arriveTime" value="${escapeHtml(f.arriveTime)}" class="ehon-input" required />
             </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
             <div>
-              <label class="block font-bold mb-1">飛行時間</label>
-              <input type="text" name="duration" value="${escapeHtml(f.duration)}" placeholder="1h 55m" class="ehon-input" />
+              <label class="block font-bold mb-1">訂位代號</label>
+              <input type="text" name="bookingRef" value="${escapeHtml(f.bookingRef)}" placeholder="選填" class="ehon-input uppercase" />
+            </div>
+            <div>
+              <label class="block font-bold mb-1">行李 / 備註</label>
+              <input type="text" name="note" value="${escapeHtml(f.note)}" placeholder="託運 23kg" class="ehon-input" />
             </div>
           </div>
-          <div class="grid grid-cols-2 gap-2.5">
-            <div>
-              <label class="block font-bold mb-1">搭乘日期</label>
-              <input type="text" name="dateText" value="${escapeHtml(f.dateText)}" class="ehon-input" required />
-            </div>
-            <div>
-              <label class="block font-bold mb-1">行李 / 航廈備註</label>
-              <input type="text" name="note" value="${escapeHtml(f.note)}" class="ehon-input" />
-            </div>
-          </div>
+
           <div class="pt-2 flex justify-end gap-2">
-            <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-2 font-bold">取消</button>
-            <button type="submit" class="ehon-btn bg-mizuiro px-5 py-2 font-bold">儲存航班</button>
+            <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-1.5 font-bold">取消</button>
+            <button type="submit" class="ehon-btn bg-mizuiro px-5 py-1.5 font-bold">儲存航班</button>
           </div>
         </form>
       `);
 
-      document.getElementById("flightEditForm").addEventListener("submit", (e) => {
+      document.getElementById("flightForm").addEventListener("submit", (e) => {
         e.preventDefault();
         const fd = new FormData(e.target);
-        appState.flights[key] = {
-          ...f,
+        const item = {
+          id: isEdit ? f.id : `fl-${Date.now()}`,
+          direction: fd.get("direction"),
           airline: fd.get("airline").trim(),
+          flightNo: fd.get("flightNo").trim().toUpperCase(),
           fromCode: fd.get("fromCode").trim().toUpperCase(),
           fromName: fd.get("fromName").trim(),
+          departDate: fd.get("departDate").trim(),
+          departTime: fd.get("departTime"),
           toCode: fd.get("toCode").trim().toUpperCase(),
           toName: fd.get("toName").trim(),
-          departTime: fd.get("departTime"),
           arriveTime: fd.get("arriveTime"),
-          duration: fd.get("duration").trim(),
-          dateText: fd.get("dateText").trim(),
+          bookingRef: fd.get("bookingRef").trim().toUpperCase(),
           note: fd.get("note").trim()
         };
-        saveAppState(`已儲存${label}資訊！`);
+        if (isEdit) state.flights[editIdx] = item;
+        else state.flights.push(item);
+
+        saveState(isEdit ? "已更新航班" : "已新增航班");
         renderFlights();
         closeModal();
       });
     }
 
     // ==========================================
-    // 6. 每日行程（預設空白 + 彈跳切換 + 自由新增/編輯/刪除）
+    // 7. 分頁 2：每日行程（天數自由增減 + 節點上下移動/編輯）
     // ==========================================
     function renderDayTabs() {
-      const tabsContainer = document.getElementById("dayTabs");
-      tabsContainer.innerHTML = "";
+      const bar = document.getElementById("dayTabsBar");
+      bar.innerHTML = "";
 
-      appState.days.forEach((item, idx) => {
-        const isActive = idx === currentDayIndex;
-        const count = item.events.length;
+      if (activeDayIndex >= state.days.length) {
+        activeDayIndex = Math.max(0, state.days.length - 1);
+      }
+
+      state.days.forEach((d, idx) => {
+        const isSelected = idx === activeDayIndex;
         const btn = document.createElement("button");
         btn.type = "button";
         btn.setAttribute("role", "tab");
-        btn.setAttribute("aria-selected", isActive ? "true" : "false");
-        btn.className = `ehon-btn py-2 px-1 text-center flex flex-col items-center justify-center relative ${
-          isActive ? "bg-coral -translate-y-0.5" : "bg-washi hover:bg-yamabuki/40"
+        btn.setAttribute("aria-selected", isSelected ? "true" : "false");
+        btn.className = `ehon-btn shrink-0 px-3.5 py-1.5 text-xs sm:text-sm font-bold flex items-center gap-1.5 ${
+          isSelected ? "bg-coral" : "bg-washi hover:bg-yamabuki/40"
         }`;
-
-        const countDot = count > 0
-          ? `<span class="mt-0.5 text-[10px] font-bold bg-washi border border-ink rounded-full px-1.5 leading-tight">${count}站</span>`
-          : `<span class="mt-0.5 text-[10px] opacity-75">空白</span>`;
-
         btn.innerHTML = `
-          <span class="text-xs sm:text-sm font-bold leading-tight">Day ${item.day}</span>
-          <span class="text-[11px] font-bold mt-0.5">${escapeHtml(item.shortDate)}</span>
-          ${countDot}
+          <span>${escapeHtml(d.tabTitle)}</span>
+          <span class="text-[11px] opacity-85">${escapeHtml(d.dateText.split(" ")[0])}</span>
         `;
-
         btn.addEventListener("click", () => {
-          if (currentDayIndex === idx) return;
-          currentDayIndex = idx;
+          activeDayIndex = idx;
           renderDayTabs();
-          renderDayTimeline(true);
+          renderDayContent();
         });
-
-        tabsContainer.appendChild(btn);
+        bar.appendChild(btn);
       });
     }
 
-    function renderDayTimeline(animate = false) {
-      const dayData = appState.days[currentDayIndex];
-      const banner = document.getElementById("daySummaryBanner");
-      const bannerDate = document.getElementById("dayBannerDate");
-      const bannerTitle = document.getElementById("dayBannerTitle");
-      const bannerIcon = document.getElementById("dayBannerIcon");
-      const container = document.getElementById("timelineContainer");
+    function renderDayContent() {
+      const day = state.days[activeDayIndex];
+      const banner = document.getElementById("dayThemeBanner");
+      const itemsContainer = document.getElementById("timelineItems");
+      const axis = document.getElementById("timelineAxis");
+      const wrapper = document.getElementById("timelineWrapper");
 
-      bannerDate.textContent = `DAY ${dayData.day} ・ ${dayData.dateLabel}`;
-      bannerTitle.textContent = dayData.theme;
-      bannerIcon.innerHTML = DAY_ICONS[dayData.iconType] || DAY_ICONS.firework;
-
-      if (animate) {
-        banner.classList.remove("anim-bounce-in");
-        void banner.offsetWidth;
-        banner.classList.add("anim-bounce-in");
-      }
-
-      // 保留左側垂直線
-      const lineEl = document.getElementById("timelineVerticalLine");
-      container.innerHTML = "";
-      container.appendChild(lineEl);
-
-      // 若當日尚未規劃行程，顯示可愛繪本風空白引導卡片
-      if (!dayData.events || dayData.events.length === 0) {
-        lineEl.classList.add("hidden");
-        container.classList.remove("pl-6", "sm:pl-7");
-
-        const emptyCard = document.createElement("div");
-        emptyCard.className = `ehon-card bg-washi p-6 sm:p-8 text-center space-y-4 ${animate ? "anim-bounce-in" : ""}`;
-        emptyCard.innerHTML = `
-          <div class="mx-auto w-24 h-20 bg-mizuiro/30 border-[3px] border-ink rounded-2xl flex items-center justify-center">
-            <svg viewBox="0 0 80 60" class="w-20 h-14 anim-tram" role="img" aria-label="空白手帳小插圖">
-              <rect x="16" y="10" width="48" height="36" rx="8" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
-              <line x1="25" y1="22" x2="55" y2="22" stroke="#F2A497" stroke-width="3.5" stroke-linecap="round"/>
-              <line x1="25" y1="31" x2="45" y2="31" stroke="#A8D3E6" stroke-width="3.5" stroke-linecap="round"/>
-              <circle cx="54" cy="36" r="7" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
-              <line x1="54" y1="33" x2="54" y2="39" stroke="#3E3A39" stroke-width="2.2" stroke-linecap="round"/>
-              <line x1="51" y1="36" x2="57" y2="36" stroke="#3E3A39" stroke-width="2.2" stroke-linecap="round"/>
-            </svg>
+      if (!day) {
+        banner.classList.add("hidden");
+        axis.classList.add("hidden");
+        itemsContainer.innerHTML = `
+          <div class="ehon-card p-6 text-center">
+            <p class="font-bold text-sm">目前沒有天數，請點擊上方「＋ 新增天數」建立第一天行程！</p>
           </div>
-          <div class="space-y-1">
-            <h4 class="text-lg font-bold">這天還是空白的手帳頁呢！</h4>
-            <p class="text-xs sm:text-sm text-ink/80">慢慢規劃也沒關係，隨時把想去的維港夜景、茶餐廳或購物行程加進來吧～</p>
-          </div>
-          <button type="button" id="emptyAddEventBtn"
-            class="ehon-btn bg-yamabuki hover:bg-coral px-5 py-2.5 text-sm font-bold inline-flex items-center gap-1.5">
-            <span>＋</span>
-            <span>新增 Day ${dayData.day} 第一個行程</span>
-          </button>
         `;
-        container.appendChild(emptyCard);
-        document.getElementById("emptyAddEventBtn").addEventListener("click", () => openEventModal(null));
         return;
       }
 
-      // 有行程時顯示時間軸
-      lineEl.classList.remove("hidden");
-      container.classList.add("pl-6", "sm:pl-7");
+      banner.classList.remove("hidden");
+      document.getElementById("currentDayLabel").textContent = `${day.tabTitle} ・ ${day.dateText}`;
+      document.getElementById("currentDayTheme").textContent = day.theme || "未設定當日主題";
 
-      // 依時間排序
-      dayData.events.sort((a, b) => (a.time || "").localeCompare(b.time || ""));
+      itemsContainer.innerHTML = "";
 
-      dayData.events.forEach((ev, index) => {
-        const cardWrap = document.createElement("div");
-        cardWrap.className = `relative ${animate ? "anim-bounce-in" : ""}`;
-        if (animate) {
-          cardWrap.style.animationDelay = `${index * 60}ms`;
-        }
+      if (!day.events || day.events.length === 0) {
+        axis.classList.add("hidden");
+        wrapper.classList.remove("pl-6", "sm:pl-7");
+        itemsContainer.innerHTML = `
+          <div class="ehon-card p-6 text-center space-y-3">
+            <p class="font-bold text-sm">這天目前還沒有安排行程節點</p>
+            <button type="button" id="emptyDayAddBtn" class="ehon-btn bg-yamabuki hover:bg-coral px-4 py-2 text-xs sm:text-sm font-bold">
+              ＋ 新增第一個行程
+            </button>
+          </div>
+        `;
+        document.getElementById("emptyDayAddBtn").addEventListener("click", () => openEventModal(null));
+        return;
+      }
 
-        const badgeColor = TRANSPORT_STYLES[ev.transport] || "bg-mizuiro";
-        const mustGoBadge = ev.mustGo
-          ? `<span class="inline-flex items-center gap-0.5 bg-coral border-2 border-ink rounded-full px-2.5 py-0.5 text-xs font-bold shrink-0">★ 必去</span>`
-          : "";
+      axis.classList.remove("hidden");
+      wrapper.classList.add("pl-6", "sm:pl-7");
 
-        cardWrap.innerHTML = `
-          <!-- 時間軸圓點 -->
-          <span class="absolute -left-[21px] sm:-left-[23px] top-5 w-4 h-4 rounded-full ${ev.mustGo ? "bg-coral" : "bg-yamabuki"} border-[3px] border-ink z-10" aria-hidden="true"></span>
+      day.events.forEach((ev, idx) => {
+        const tagBg = CATEGORY_TAG_COLORS[ev.category] || "bg-washi";
+        const mapHref = ev.mapUrl && ev.mapUrl.trim()
+          ? ev.mapUrl.trim()
+          : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("香港 " + ev.place)}`;
 
-          <article class="ehon-card-sm bg-washi p-4 space-y-2.5">
+        const node = document.createElement("div");
+        node.className = "relative";
+        node.innerHTML = `
+          <span class="absolute -left-[21px] sm:-left-[23px] top-5 w-3.5 h-3.5 rounded-full ${tagBg} border-2 border-ink z-10" aria-hidden="true"></span>
+
+          <article class="ehon-card-sm p-3.5 sm:p-4 space-y-2">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <div class="flex items-center gap-2">
-                <span class="bg-ink text-washi rounded-xl px-2.5 py-0.5 text-xs sm:text-sm font-bold">${escapeHtml(ev.time)}</span>
-                <span class="${badgeColor} border-2 border-ink rounded-full px-2.5 py-0.5 text-xs font-bold">${escapeHtml(ev.transport)}</span>
+                <span class="bg-ink text-washi rounded-xl px-2.5 py-0.5 text-xs font-bold">${escapeHtml(ev.time)}</span>
+                <span class="${tagBg} border-2 border-ink rounded-full px-2.5 py-0.5 text-xs font-bold">${escapeHtml(ev.category)}</span>
               </div>
-              <div class="flex items-center gap-1.5">
-                ${mustGoBadge}
-                <button type="button" data-ev-idx="${index}" class="edit-ev-btn bg-washi hover:bg-yamabuki border-2 border-ink rounded-full px-2 py-0.5 text-xs font-bold">✎</button>
-                <button type="button" data-ev-idx="${index}" class="del-ev-btn bg-washi hover:bg-coral border-2 border-ink rounded-full px-2 py-0.5 text-xs font-bold">✕</button>
+
+              <!-- 上下移動、編輯與刪除控制 -->
+              <div class="flex items-center gap-1">
+                <button type="button" data-idx="${idx}" title="上移" ${idx === 0 ? "disabled" : ""}
+                  class="move-up-btn bg-washi hover:bg-yamabuki disabled:opacity-35 border-2 border-ink rounded-full w-7 h-7 text-xs font-bold flex items-center justify-center">↑</button>
+                <button type="button" data-idx="${idx}" title="下移" ${idx === day.events.length - 1 ? "disabled" : ""}
+                  class="move-down-btn bg-washi hover:bg-yamabuki disabled:opacity-35 border-2 border-ink rounded-full w-7 h-7 text-xs font-bold flex items-center justify-center">↓</button>
+                <button type="button" data-idx="${idx}" title="編輯"
+                  class="edit-ev-btn bg-washi hover:bg-mizuiro border-2 border-ink rounded-full px-2.5 h-7 text-xs font-bold">✎</button>
+                <button type="button" data-idx="${idx}" title="刪除"
+                  class="del-ev-btn bg-washi hover:bg-coral border-2 border-ink rounded-full w-7 h-7 text-xs font-bold flex items-center justify-center">✕</button>
               </div>
             </div>
 
-            <h4 class="text-base sm:text-lg font-bold leading-snug">${escapeHtml(ev.place)}</h4>
+            <h4 class="text-base sm:text-lg font-black">${escapeHtml(ev.place)}</h4>
 
             ${ev.note ? `<p class="text-xs sm:text-sm text-ink/85 leading-relaxed">${escapeHtml(ev.note)}</p>` : ""}
 
             <div class="pt-1 flex justify-end">
-              <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("香港 " + ev.place)}"
-                 target="_blank" rel="noopener noreferrer"
-                 class="inline-flex items-center gap-1 text-xs font-bold bg-washi hover:bg-mizuiro/50 border-2 border-ink rounded-full px-3 py-1 transition-colors">
+              <a href="${escapeHtml(mapHref)}" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 bg-washi hover:bg-mizuiro/60 border-2 border-ink rounded-full px-3 py-1 text-xs font-bold transition-colors">
                 <span>📍</span>
-                <span>Google 地圖</span>
+                <span>地圖導航</span>
               </a>
             </div>
           </article>
         `;
-        container.appendChild(cardWrap);
+        itemsContainer.appendChild(node);
+      });
+
+      document.querySelectorAll(".move-up-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const i = Number(btn.getAttribute("data-idx"));
+          if (i > 0) {
+            [day.events[i - 1], day.events[i]] = [day.events[i], day.events[i - 1]];
+            saveState("已調整行程順序");
+            renderDayContent();
+          }
+        });
+      });
+
+      document.querySelectorAll(".move-down-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const i = Number(btn.getAttribute("data-idx"));
+          if (i < day.events.length - 1) {
+            [day.events[i], day.events[i + 1]] = [day.events[i + 1], day.events[i]];
+            saveState("已調整行程順序");
+            renderDayContent();
+          }
+        });
       });
 
       document.querySelectorAll(".edit-ev-btn").forEach((btn) => {
-        btn.addEventListener("click", () => openEventModal(Number(btn.getAttribute("data-ev-idx"))));
+        btn.addEventListener("click", () => openEventModal(Number(btn.getAttribute("data-idx"))));
       });
 
       document.querySelectorAll(".del-ev-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const idx = Number(btn.getAttribute("data-ev-idx"));
-          dayData.events.splice(idx, 1);
-          saveAppState("已刪除該筆行程");
-          renderDayTabs();
-          renderDayTimeline(false);
+          day.events.splice(Number(btn.getAttribute("data-idx")), 1);
+          saveState("已刪除行程");
+          renderDayContent();
         });
       });
     }
 
-    function openDayThemeModal() {
-      const dayData = appState.days[currentDayIndex];
-      openModal(`編輯 Day ${dayData.day} (${dayData.dateLabel}) 主題`, `
-        <form id="dayThemeForm" class="space-y-3 text-sm">
-          <div>
-            <label class="block font-bold mb-1">當日散步主題標題</label>
-            <input type="text" name="theme" value="${escapeHtml(dayData.theme.startsWith("尚未規劃") ? "" : dayData.theme)}"
-              placeholder="例如：尖沙咀海濱散步與維港跨年倒數煙火" class="ehon-input" required />
+    function openDayMetaModal(isNew = false) {
+      const day = isNew
+        ? { tabTitle: `Day ${state.days.length + 1}`, dateText: "01/05 (二)", theme: "" }
+        : state.days[activeDayIndex];
+
+      openModal(isNew ? "新增行程天數" : "編輯當日標題與日期", `
+        <form id="dayMetaForm" class="space-y-3 text-sm">
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block font-bold mb-1">分頁標籤（如 Day 1）</label>
+              <input type="text" name="tabTitle" value="${escapeHtml(day.tabTitle)}" class="ehon-input" required />
+            </div>
+            <div>
+              <label class="block font-bold mb-1">日期說明</label>
+              <input type="text" name="dateText" value="${escapeHtml(day.dateText)}" placeholder="12/31 (四) 跨年夜" class="ehon-input" required />
+            </div>
           </div>
           <div>
-            <label class="block font-bold mb-1">選擇當日插畫小徽章</label>
-            <select name="iconType" class="ehon-input">
-              <option value="firework" ${dayData.iconType === "firework" ? "selected" : ""}>🎆 維港煙火星星</option>
-              <option value="tram" ${dayData.iconType === "tram" ? "selected" : ""}>🚋 香港雙層叮叮車</option>
-              <option value="ferry" ${dayData.iconType === "ferry" ? "selected" : ""}>⛴ 天星小輪</option>
-              <option value="dimsum" ${dayData.iconType === "dimsum" ? "selected" : ""}>🥟 港式點心蒸籠</option>
-              <option value="bag" ${dayData.iconType === "bag" ? "selected" : ""}>🛍 伴手禮購物袋</option>
-            </select>
+            <label class="block font-bold mb-1">當日主題標題</label>
+            <input type="text" name="theme" value="${escapeHtml(day.theme)}" placeholder="例如：維港跨年煙火與海濱散步" class="ehon-input" />
           </div>
           <div class="pt-2 flex justify-end gap-2">
-            <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-2 font-bold">取消</button>
-            <button type="submit" class="ehon-btn bg-yamabuki px-5 py-2 font-bold">儲存主題</button>
+            <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-1.5 font-bold">取消</button>
+            <button type="submit" class="ehon-btn bg-yamabuki px-5 py-1.5 font-bold">儲存</button>
           </div>
         </form>
       `);
 
-      document.getElementById("dayThemeForm").addEventListener("submit", (e) => {
+      document.getElementById("dayMetaForm").addEventListener("submit", (e) => {
         e.preventDefault();
         const fd = new FormData(e.target);
-        dayData.theme = fd.get("theme").trim() || "尚未規劃 ✨";
-        dayData.iconType = fd.get("iconType");
-        saveAppState(`已更新 Day ${dayData.day} 主題！`);
-        renderDayTimeline(true);
+        if (isNew) {
+          state.days.push({
+            id: `day-${Date.now()}`,
+            tabTitle: fd.get("tabTitle").trim(),
+            dateText: fd.get("dateText").trim(),
+            theme: fd.get("theme").trim(),
+            events: []
+          });
+          activeDayIndex = state.days.length - 1;
+          saveState("已新增天數");
+        } else {
+          day.tabTitle = fd.get("tabTitle").trim();
+          day.dateText = fd.get("dateText").trim();
+          day.theme = fd.get("theme").trim();
+          saveState("已更新當日資訊");
+        }
+        renderDayTabs();
+        renderDayContent();
         closeModal();
       });
     }
 
-    function openEventModal(editIndex = null) {
-      const dayData = appState.days[currentDayIndex];
-      const isEdit = editIndex !== null && dayData.events[editIndex];
+    function openEventModal(editIdx = null) {
+      const day = state.days[activeDayIndex];
+      if (!day) {
+        openDayMetaModal(true);
+        return;
+      }
+      const isEdit = editIdx !== null && day.events[editIdx];
       const ev = isEdit
-        ? dayData.events[editIndex]
-        : { time: "14:00", place: "", transport: "港鐵 MTR", mustGo: false, note: "" };
+        ? day.events[editIdx]
+        : { time: "12:00", place: "", category: "景點", mapUrl: "", note: "" };
 
-      const transportOptions = Object.keys(TRANSPORT_STYLES)
-        .map((t) => `<option value="${t}" ${ev.transport === t ? "selected" : ""}>${t}</option>`)
+      const catOpts = Object.keys(CATEGORY_TAG_COLORS)
+        .map((c) => `<option value="${c}" ${ev.category === c ? "selected" : ""}>${c}</option>`)
         .join("");
 
-      openModal(isEdit ? `編輯 Day ${dayData.day} 行程` : `新增 Day ${dayData.day} 行程`, `
-        <form id="eventForm" class="space-y-3 text-sm">
-          <div class="grid grid-cols-2 gap-2.5">
+      openModal(isEdit ? "編輯行程節點" : `新增 ${day.tabTitle} 行程`, `
+        <form id="eventNodeForm" class="space-y-3 text-sm">
+          <div class="grid grid-cols-2 gap-2">
             <div>
               <label class="block font-bold mb-1">時間</label>
               <input type="time" name="time" value="${escapeHtml(ev.time)}" class="ehon-input" required />
             </div>
             <div>
-              <label class="block font-bold mb-1">交通方式</label>
-              <select name="transport" class="ehon-input">
-                ${transportOptions}
-              </select>
+              <label class="block font-bold mb-1">分類標籤</label>
+              <select name="category" class="ehon-input">${catOpts}</select>
             </div>
           </div>
           <div>
-            <label class="block font-bold mb-1">地點 / 餐廳 / 景點名稱</label>
-            <input type="text" name="place" value="${escapeHtml(ev.place)}"
-              placeholder="例如：維多利亞港星光大道 / 蘭芳園絲襪奶茶" class="ehon-input" required />
+            <label class="block font-bold mb-1">地點名稱</label>
+            <input type="text" name="place" value="${escapeHtml(ev.place)}" placeholder="例如：星光大道 / 蘭芳園" class="ehon-input" required />
           </div>
           <div>
-            <label class="inline-flex items-center gap-2 cursor-pointer bg-coral/25 border-2 border-ink rounded-xl px-3 py-2 w-full">
-              <input type="checkbox" name="mustGo" ${ev.mustGo ? "checked" : ""} class="w-4 h-4 accent-ink" />
-              <span class="font-bold">標記為「★ 必去」重點行程</span>
-            </label>
+            <label class="block font-bold mb-1">自訂地圖連結（選填，留空則自動搜尋地點）</label>
+            <input type="url" name="mapUrl" value="${escapeHtml(ev.mapUrl)}" placeholder="https://maps.google.com/..." class="ehon-input" />
           </div>
           <div>
-            <label class="block font-bold mb-1">備註 / 必吃推薦（選填）</label>
-            <textarea name="note" rows="3" placeholder="例如：記得先買蛋撻、日落前 30 分鐘抵達拍照..."
-              class="ehon-input">${escapeHtml(ev.note)}</textarea>
+            <label class="block font-bold mb-1">備註（選填）</label>
+            <textarea name="note" rows="2" placeholder="必吃美食、交通方式或預約提醒..." class="ehon-input">${escapeHtml(ev.note)}</textarea>
           </div>
           <div class="pt-2 flex justify-end gap-2">
-            <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-2 font-bold">取消</button>
-            <button type="submit" class="ehon-btn bg-coral px-5 py-2 font-bold">${isEdit ? "儲存修改" : "加入行程"}</button>
+            <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-1.5 font-bold">取消</button>
+            <button type="submit" class="ehon-btn bg-coral px-5 py-1.5 font-bold">${isEdit ? "儲存修改" : "加入行程"}</button>
           </div>
         </form>
       `);
 
-      document.getElementById("eventForm").addEventListener("submit", (e) => {
+      document.getElementById("eventNodeForm").addEventListener("submit", (e) => {
         e.preventDefault();
         const fd = new FormData(e.target);
-        const record = {
+        const item = {
+          id: isEdit ? ev.id : `ev-${Date.now()}`,
           time: fd.get("time"),
-          transport: fd.get("transport"),
+          category: fd.get("category"),
           place: fd.get("place").trim(),
-          mustGo: fd.get("mustGo") === "on",
+          mapUrl: fd.get("mapUrl").trim(),
           note: fd.get("note").trim()
         };
+        if (isEdit) day.events[editIdx] = item;
+        else day.events.push(item);
 
-        if (isEdit) {
-          dayData.events[editIndex] = record;
-        } else {
-          dayData.events.push(record);
-        }
-
-        saveAppState(isEdit ? "已更新行程！" : "已新增行程至時間軸！");
-        renderDayTabs();
-        renderDayTimeline(true);
+        saveState(isEdit ? "已更新行程" : "已新增行程");
+        renderDayContent();
         closeModal();
       });
     }
 
     // ==========================================
-    // 7. 住宿資訊渲染與自由編輯
+    // 8. 分頁 3：住宿資訊（支援多間住宿點自由新增/編輯/刪除）
     // ==========================================
-    function renderHotel() {
-      const h = appState.hotel;
-      const container = document.getElementById("hotelCardContainer");
-      container.innerHTML = `
-        <div class="flex items-start justify-between gap-3">
-          <div>
-            <span class="ehon-pill bg-wakatake px-3 py-0.5 text-xs font-bold">${escapeHtml(h.badge)}</span>
-            <h3 class="text-lg sm:text-xl font-bold mt-2">${escapeHtml(h.name)}</h3>
-            <p class="text-xs sm:text-sm text-ink/80">${escapeHtml(h.area)}</p>
-          </div>
-          <!-- 香港小旅館 SVG 插畫 -->
-          <svg viewBox="0 0 64 64" class="w-14 h-14 shrink-0" role="img" aria-label="住宿小插圖">
-            <rect x="14" y="10" width="36" height="44" rx="5" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
-            <rect x="20" y="16" width="8" height="8" rx="1.5" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2"/>
-            <rect x="36" y="16" width="8" height="8" rx="1.5" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2"/>
-            <rect x="20" y="29" width="8" height="8" rx="1.5" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/>
-            <rect x="36" y="29" width="8" height="8" rx="1.5" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/>
-            <rect x="26" y="42" width="12" height="12" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/>
-          </svg>
-        </div>
+    function renderHotels() {
+      const container = document.getElementById("hotelsList");
+      container.innerHTML = "";
 
-        <div class="grid grid-cols-2 gap-2.5 bg-washi border-2 border-ink rounded-2xl p-3 text-sm">
-          <div>
-            <div class="text-xs text-ink/75">入住 Check-in</div>
-            <div class="font-bold text-xs sm:text-sm">${escapeHtml(h.checkIn)}</div>
+      if (state.hotels.length === 0) {
+        container.innerHTML = `
+          <div class="ehon-card p-6 text-center space-y-3">
+            <p class="font-bold text-sm">目前還沒有住宿卡片，點擊右上角「＋ 新增住宿」建立飯店資訊！</p>
           </div>
-          <div class="border-l-2 border-dashed border-ink pl-3">
-            <div class="text-xs text-ink/75">退房 Check-out</div>
-            <div class="font-bold text-xs sm:text-sm">${escapeHtml(h.checkOut)}</div>
-          </div>
-        </div>
+        `;
+        return;
+      }
 
-        <div class="space-y-2 text-sm">
-          <div class="flex items-start gap-2">
-            <span class="font-bold shrink-0">📍 地址：</span>
-            <span class="break-all">${escapeHtml(h.address)}</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="font-bold shrink-0">🔖 訂房代號：</span>
-            <span class="bg-yamabuki/70 border-2 border-ink rounded-lg px-2 py-0.5 font-bold text-xs">${escapeHtml(h.bookingCode)}</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="font-bold shrink-0">💡 備註：</span>
-            <span>${escapeHtml(h.note)}</span>
-          </div>
-        </div>
+      state.hotels.forEach((h, idx) => {
+        const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.address || h.name)}`;
+        const card = document.createElement("article");
+        card.className = "ehon-card p-4 sm:p-5 space-y-3";
+        card.innerHTML = `
+          <div class="flex flex-wrap items-start justify-between gap-2">
+            <div class="space-y-1">
+              <span class="ehon-pill bg-wakatake px-3 py-0.5 text-xs font-bold">${escapeHtml(h.dateRange)}</span>
+              <h3 class="text-lg sm:text-xl font-black pt-1">${escapeHtml(h.name)}</h3>
+              ${h.roomType ? `<p class="text-xs sm:text-sm font-bold text-ink/80">🛏 ${escapeHtml(h.roomType)}</p>` : ""}
+            </div>
 
-        <div class="flex flex-wrap gap-2 pt-1">
-          <button id="copyAddressBtn" type="button"
-            class="ehon-btn bg-mizuiro px-4 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
-            <span>📋</span>
-            <span id="copyAddressText">複製飯店地址</span>
-          </button>
-          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.address)}" target="_blank" rel="noopener noreferrer"
-            class="ehon-btn bg-yamabuki px-4 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
-            <span>📍</span>
-            <span>開啟 Google 地圖</span>
-          </a>
-        </div>
-      `;
+            <div class="flex items-center gap-1.5">
+              <button type="button" data-idx="${idx}" class="edit-hotel-btn bg-washi hover:bg-yamabuki border-2 border-ink rounded-full px-2.5 py-0.5 text-xs font-bold">✎ 編輯</button>
+              <button type="button" data-idx="${idx}" class="del-hotel-btn bg-washi hover:bg-coral border-2 border-ink rounded-full px-2.5 py-0.5 text-xs font-bold">✕</button>
+            </div>
+          </div>
 
-      document.getElementById("copyAddressBtn").addEventListener("click", () => {
-        const tempInput = document.createElement("textarea");
-        tempInput.value = h.address;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        try {
-          document.execCommand("copy");
-          document.getElementById("copyAddressText").textContent = "已複製地址！";
-          showToast("已複製飯店地址");
-          setTimeout(() => {
-            const el = document.getElementById("copyAddressText");
-            if (el) el.textContent = "複製飯店地址";
-          }, 2000);
-        } catch (err) {
-          showToast("請手動複製地址");
-        }
-        document.body.removeChild(tempInput);
+          <div class="bg-washi border-2 border-ink rounded-2xl p-3 space-y-1.5 text-xs sm:text-sm">
+            <div class="flex items-start gap-1.5">
+              <span class="font-bold shrink-0">📍 地址：</span>
+              <span class="break-all">${escapeHtml(h.address)}</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold shrink-0">🔖 訂房編號：</span>
+              <span class="bg-yamabuki/70 border border-ink rounded px-2 py-0.5 font-bold text-xs">${escapeHtml(h.bookingRef || "未填寫")}</span>
+            </div>
+            ${h.note ? `<div class="flex items-start gap-1.5"><span class="font-bold shrink-0">💡 備註：</span><span>${escapeHtml(h.note)}</span></div>` : ""}
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <button type="button" data-addr="${escapeHtml(h.address)}"
+              class="copy-hotel-addr-btn ehon-btn bg-mizuiro hover:bg-yamabuki px-3.5 py-1.5 text-xs font-bold flex items-center gap-1">
+              <span>📋</span>
+              <span>複製地址</span>
+            </button>
+            <a href="${mapLink}" target="_blank" rel="noopener noreferrer"
+              class="ehon-btn bg-yamabuki hover:bg-coral px-3.5 py-1.5 text-xs font-bold flex items-center gap-1">
+              <span>🧭</span>
+              <span>Google Maps 導航</span>
+            </a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      document.querySelectorAll(".edit-hotel-btn").forEach((btn) => {
+        btn.addEventListener("click", () => openHotelModal(Number(btn.getAttribute("data-idx"))));
+      });
+      document.querySelectorAll(".del-hotel-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.hotels.splice(Number(btn.getAttribute("data-idx")), 1);
+          saveState("已刪除住宿資訊");
+          renderHotels();
+        });
+      });
+      document.querySelectorAll(".copy-hotel-addr-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          copyToClipboard(btn.getAttribute("data-addr") || "");
+          showToast("已複製飯店地址 📋");
+        });
       });
     }
 
-    function openHotelEditModal() {
-      const h = appState.hotel;
-      openModal("編輯香港住宿資訊", `
-        <form id="hotelEditForm" class="space-y-3 text-sm">
+    function openHotelModal(editIdx = null) {
+      const isEdit = editIdx !== null && state.hotels[editIdx];
+      const h = isEdit
+        ? state.hotels[editIdx]
+        : {
+            dateRange: "2027/01/02 – 2027/01/04 (2晚)",
+            name: "",
+            roomType: "",
+            address: "",
+            bookingRef: "",
+            note: ""
+          };
+
+      openModal(isEdit ? "編輯住宿資訊" : "新增住宿資訊", `
+        <form id="hotelForm" class="space-y-3 text-sm">
+          <div>
+            <label class="block font-bold mb-1">入住與退房日期區間</label>
+            <input type="text" name="dateRange" value="${escapeHtml(h.dateRange)}" placeholder="例如：2026/12/31 – 2027/01/02 (2晚)" class="ehon-input" required />
+          </div>
           <div>
             <label class="block font-bold mb-1">飯店 / 旅宿名稱</label>
-            <input type="text" name="name" value="${escapeHtml(h.name.startsWith("尚未填寫") ? "" : h.name)}"
-              placeholder="例如：尖沙咀帝樂文娜公館 / 銅鑼灣迷你酒店" class="ehon-input" required />
+            <input type="text" name="name" value="${escapeHtml(h.name)}" placeholder="例如：銅鑼灣迷你酒店" class="ehon-input" required />
           </div>
-          <div class="grid grid-cols-2 gap-2.5">
+          <div class="grid grid-cols-2 gap-2">
             <div>
-              <label class="block font-bold mb-1">所在區域 / 捷運站</label>
-              <input type="text" name="area" value="${escapeHtml(h.area)}" placeholder="例如：尖沙咀站 B2 出口" class="ehon-input" />
+              <label class="block font-bold mb-1">房型</label>
+              <input type="text" name="roomType" value="${escapeHtml(h.roomType)}" placeholder="雙人房" class="ehon-input" />
             </div>
             <div>
-              <label class="block font-bold mb-1">訂房代號</label>
-              <input type="text" name="bookingCode" value="${escapeHtml(h.bookingCode)}" class="ehon-input" />
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-2.5">
-            <div>
-              <label class="block font-bold mb-1">入住時間</label>
-              <input type="text" name="checkIn" value="${escapeHtml(h.checkIn)}" class="ehon-input" />
-            </div>
-            <div>
-              <label class="block font-bold mb-1">退房時間</label>
-              <input type="text" name="checkOut" value="${escapeHtml(h.checkOut)}" class="ehon-input" />
+              <label class="block font-bold mb-1">訂房編號</label>
+              <input type="text" name="bookingRef" value="${escapeHtml(h.bookingRef)}" placeholder="選填" class="ehon-input" />
             </div>
           </div>
           <div>
-            <label class="block font-bold mb-1">飯店完整地址</label>
-            <input type="text" name="address" value="${escapeHtml(h.address)}" class="ehon-input" required />
+            <label class="block font-bold mb-1">飯店地址（用於 Google Maps 導航）</label>
+            <input type="text" name="address" value="${escapeHtml(h.address)}" placeholder="香港銅鑼灣新會道 8 號" class="ehon-input" required />
           </div>
           <div>
-            <label class="block font-bold mb-1">交通與備註</label>
-            <textarea name="note" rows="2" class="ehon-input">${escapeHtml(h.note)}</textarea>
+            <label class="block font-bold mb-1">入住備註</label>
+            <textarea name="note" rows="2" placeholder="15:00 入住、近地鐵站出口..." class="ehon-input">${escapeHtml(h.note)}</textarea>
           </div>
           <div class="pt-2 flex justify-end gap-2">
-            <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-2 font-bold">取消</button>
-            <button type="submit" class="ehon-btn bg-wakatake px-5 py-2 font-bold">儲存住宿</button>
+            <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-1.5 font-bold">取消</button>
+            <button type="submit" class="ehon-btn bg-wakatake px-5 py-1.5 font-bold">儲存住宿</button>
           </div>
         </form>
       `);
 
-      document.getElementById("hotelEditForm").addEventListener("submit", (e) => {
+      document.getElementById("hotelForm").addEventListener("submit", (e) => {
         e.preventDefault();
         const fd = new FormData(e.target);
-        appState.hotel = {
-          ...h,
-          name: fd.get("name").trim() || "未命名飯店",
-          area: fd.get("area").trim(),
-          bookingCode: fd.get("bookingCode").trim(),
-          checkIn: fd.get("checkIn").trim(),
-          checkOut: fd.get("checkOut").trim(),
+        const item = {
+          id: isEdit ? h.id : `ht-${Date.now()}`,
+          dateRange: fd.get("dateRange").trim(),
+          name: fd.get("name").trim(),
+          roomType: fd.get("roomType").trim(),
+          bookingRef: fd.get("bookingRef").trim(),
           address: fd.get("address").trim(),
           note: fd.get("note").trim()
         };
-        saveAppState("已儲存住宿資訊！");
-        renderHotel();
+        if (isEdit) state.hotels[editIdx] = item;
+        else state.hotels.push(item);
+
+        saveState(isEdit ? "已更新住宿資訊" : "已新增住宿資訊");
+        renderHotels();
         closeModal();
       });
     }
 
     // ==========================================
-    // 8. 互動清單渲染（行前待辦、出門前、行李）
+    // 9. 分頁 4：行前清單（自訂分類 + 分類內直接新增項目）
     // ==========================================
-    function renderAllChecklists() {
-      renderSimpleList("todo", "list-todo", "todoCountBadge");
-      renderSimpleList("beforeLeave", "list-beforeLeave", "beforeLeaveCountBadge");
-      renderPackingList();
-      updateTotalProgress();
-    }
+    function renderChecklists() {
+      const grid = document.getElementById("checklistCategoriesGrid");
+      grid.innerHTML = "";
 
-    function createCheckItemHTML(listType, item) {
-      const li = document.createElement("li");
-      li.className = `flex items-center justify-between gap-2.5 p-2.5 rounded-2xl border-2 border-ink transition-colors ${
-        item.done ? "bg-wakatake/35" : "bg-washi"
-      }`;
+      let totalCount = 0;
+      let doneCount = 0;
 
-      li.innerHTML = `
-        <label class="flex items-center gap-3 cursor-pointer flex-1 select-none">
-          <input type="checkbox" ${item.done ? "checked" : ""} class="sr-only" />
-          <span class="check-box w-6 h-6 rounded-lg border-[2.5px] border-ink flex items-center justify-center shrink-0 ${
-            item.done ? "bg-wakatake" : "bg-washi"
-          }">
-            ${item.done ? '<svg viewBox="0 0 20 20" class="w-4 h-4"><polyline points="4,10 8,14 16,6" fill="none" stroke="#3E3A39" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ""}
-          </span>
-          <span class="text-sm sm:text-base leading-snug ${item.done ? "line-through opacity-65" : "font-bold"}">${escapeHtml(item.text)}</span>
-        </label>
-        <button type="button" aria-label="刪除此項目" title="刪除"
-          class="delete-item-btn text-xs font-bold text-ink/50 hover:text-ink px-2 py-1 rounded-lg">✕</button>
-      `;
+      state.checklistCategories.forEach((cat, catIdx) => {
+        const catItems = cat.items || [];
+        const catDone = catItems.filter((i) => i.done).length;
+        totalCount += catItems.length;
+        doneCount += catDone;
 
-      const checkbox = li.querySelector("input[type='checkbox']");
-      checkbox.addEventListener("change", () => {
-        item.done = checkbox.checked;
-        saveAppState("");
-        renderAllChecklists();
+        const card = document.createElement("article");
+        card.className = "ehon-card p-4 flex flex-col justify-between space-y-3";
+
+        const itemsHtml = catItems
+          .map(
+            (item, itemIdx) => `
+            <li class="flex items-center justify-between gap-2 p-2 rounded-xl border-2 border-ink transition-colors ${
+              item.done ? "bg-wakatake/30" : "bg-washi"
+            }">
+              <div class="flex items-center gap-2.5 flex-1 min-w-0">
+                <button type="button" data-cat="${catIdx}" data-item="${itemIdx}" aria-label="勾選項目"
+                  class="toggle-check-btn w-6 h-6 rounded-lg border-2 border-ink flex items-center justify-center shrink-0 ${
+                    item.done ? "bg-wakatake" : "bg-washi"
+                  }">
+                  ${
+                    item.done
+                      ? '<svg viewBox="0 0 20 20" class="w-4 h-4"><polyline points="4,10 8,14 16,6" fill="none" stroke="#3E3A39" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+                      : ""
+                  }
+                </button>
+                <span data-cat="${catIdx}" data-item="${itemIdx}" title="點擊修改文字"
+                  class="edit-check-text-btn cursor-pointer text-xs sm:text-sm leading-snug break-words flex-1 ${
+                    item.done ? "line-through opacity-60" : "font-bold"
+                  }">${escapeHtml(item.text)}</span>
+              </div>
+              <button type="button" data-cat="${catIdx}" data-item="${itemIdx}" aria-label="刪除項目"
+                class="del-check-item-btn text-xs font-bold text-ink/55 hover:text-ink px-1.5 py-0.5">✕</button>
+            </li>
+          `
+          )
+          .join("");
+
+        card.innerHTML = `
+          <div class="space-y-3">
+            <!-- 分類標頭（可點擊編輯標題或刪除整組分類） -->
+            <div class="flex items-center justify-between gap-2 pb-2 border-b-2 border-dashed border-ink">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="w-3.5 h-3.5 rounded-full ${cat.color || "bg-coral"} border-2 border-ink shrink-0"></span>
+                <h3 data-cat="${catIdx}" title="點擊編輯分類標題"
+                  class="edit-cat-title-btn cursor-pointer text-base font-black truncate hover:underline">${escapeHtml(cat.title)}</h3>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span class="ehon-pill ${cat.color || "bg-coral"}/50 px-2 py-0.5 text-[11px] font-bold">${catDone}/${catItems.length}</span>
+                <button type="button" data-cat="${catIdx}" title="編輯分類"
+                  class="edit-cat-title-btn bg-washi hover:bg-yamabuki border-2 border-ink rounded-full w-6 h-6 text-[11px] font-bold flex items-center justify-center">✎</button>
+                <button type="button" data-cat="${catIdx}" title="刪除整組分類"
+                  class="del-cat-btn bg-washi hover:bg-coral border-2 border-ink rounded-full w-6 h-6 text-[11px] font-bold flex items-center justify-center">✕</button>
+              </div>
+            </div>
+
+            <!-- 勾選項目列表 -->
+            <ul class="space-y-2">
+              ${itemsHtml || '<li class="text-xs text-ink/60 text-center py-2">尚無項目，在下方輸入新增吧</li>'}
+            </ul>
+          </div>
+
+          <!-- 分類卡片內部底部專屬「＋ 新增到此分類」輸入框 -->
+          <form data-cat="${catIdx}" class="add-to-cat-form flex items-center gap-1.5 pt-2 border-t-2 border-dashed border-ink">
+            <input type="text" placeholder="＋ 新增到此分類..." required
+              class="flex-1 bg-washi border-2 border-ink rounded-xl px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:bg-yamabuki/25" />
+            <button type="submit" aria-label="新增到此分類"
+              class="ehon-btn ${cat.color || "bg-yamabuki"} px-3 py-1 text-sm font-black shrink-0">＋</button>
+          </form>
+        `;
+
+        grid.appendChild(card);
       });
 
-      const delBtn = li.querySelector(".delete-item-btn");
-      delBtn.addEventListener("click", () => {
-        appState.checklists[listType] = appState.checklists[listType].filter((x) => x.id !== item.id);
-        saveAppState("已移除項目");
-        renderAllChecklists();
+      // 更新總進度條
+      const pct = totalCount === 0 ? 0 : Math.round((doneCount / totalCount) * 100);
+      document.getElementById("checklistProgressText").textContent = `${doneCount} / ${totalCount} (${pct}%)`;
+      document.getElementById("checklistProgressBar").style.width = `${pct}%`;
+
+      // 綁定勾選
+      document.querySelectorAll(".toggle-check-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const c = Number(btn.getAttribute("data-cat"));
+          const i = Number(btn.getAttribute("data-item"));
+          state.checklistCategories[c].items[i].done = !state.checklistCategories[c].items[i].done;
+          saveState("");
+          renderChecklists();
+        });
       });
 
-      return li;
-    }
-
-    function renderSimpleList(listType, ulId, badgeId) {
-      const ul = document.getElementById(ulId);
-      const badge = document.getElementById(badgeId);
-      const items = appState.checklists[listType] || [];
-      ul.innerHTML = "";
-
-      items.forEach((item) => ul.appendChild(createCheckItemHTML(listType, item)));
-      const doneCount = items.filter((i) => i.done).length;
-      badge.textContent = `${doneCount}/${items.length}`;
-    }
-
-    function renderPackingList() {
-      const container = document.getElementById("packingGroupsContainer");
-      const badge = document.getElementById("packingCountBadge");
-      const items = appState.checklists.packing || [];
-      container.innerHTML = "";
-
-      const groups = {};
-      items.forEach((item) => {
-        const cat = item.category || "其他自訂物品";
-        if (!groups[cat]) groups[cat] = [];
-        groups[cat].push(item);
+      // 綁定點擊項目文字直接修改
+      document.querySelectorAll(".edit-check-text-btn").forEach((el) => {
+        el.addEventListener("click", () => {
+          const c = Number(el.getAttribute("data-cat"));
+          const i = Number(el.getAttribute("data-item"));
+          const item = state.checklistCategories[c].items[i];
+          openModal("修改清單項目", `
+            <form id="editItemTextForm" class="space-y-3 text-sm">
+              <input type="text" name="text" value="${escapeHtml(item.text)}" class="ehon-input" required />
+              <div class="flex justify-end gap-2">
+                <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-1.5 font-bold">取消</button>
+                <button type="submit" class="ehon-btn bg-wakatake px-5 py-1.5 font-bold">儲存</button>
+              </div>
+            </form>
+          `);
+          document.getElementById("editItemTextForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const val = new FormData(e.target).get("text").trim();
+            if (val) {
+              item.text = val;
+              saveState("已修改項目");
+              renderChecklists();
+            }
+            closeModal();
+          });
+        });
       });
 
-      Object.entries(groups).forEach(([category, groupItems]) => {
-        const groupDiv = document.createElement("div");
-        groupDiv.className = "space-y-2";
-
-        const header = document.createElement("div");
-        header.className = "text-xs font-bold bg-mizuiro/45 border-2 border-ink rounded-xl px-3 py-1 inline-block";
-        header.textContent = `📦 ${category}`;
-        groupDiv.appendChild(header);
-
-        const ul = document.createElement("ul");
-        ul.className = "space-y-2";
-        groupItems.forEach((item) => ul.appendChild(createCheckItemHTML("packing", item)));
-
-        groupDiv.appendChild(ul);
-        container.appendChild(groupDiv);
+      // 綁定刪除單一項目
+      document.querySelectorAll(".del-check-item-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const c = Number(btn.getAttribute("data-cat"));
+          const i = Number(btn.getAttribute("data-item"));
+          state.checklistCategories[c].items.splice(i, 1);
+          saveState("已移除項目");
+          renderChecklists();
+        });
       });
 
-      const doneCount = items.filter((i) => i.done).length;
-      badge.textContent = `${doneCount}/${items.length}`;
-    }
-
-    function updateTotalProgress() {
-      const all = [
-        ...(appState.checklists.todo || []),
-        ...(appState.checklists.beforeLeave || []),
-        ...(appState.checklists.packing || [])
-      ];
-      const total = all.length;
-      const done = all.filter((x) => x.done).length;
-      const pct = total === 0 ? 0 : Math.round((done / total) * 100);
-
-      document.getElementById("totalProgressText").textContent = `${done} / ${total} (${pct}%)`;
-      document.getElementById("totalProgressBar").style.width = `${pct}%`;
-    }
-
-    function initChecklistForms() {
-      document.querySelectorAll(".add-item-form").forEach((form) => {
+      // 綁定分類內直接新增項目
+      document.querySelectorAll(".add-to-cat-form").forEach((form) => {
         form.addEventListener("submit", (e) => {
           e.preventDefault();
-          const listType = form.getAttribute("data-list-type");
+          const c = Number(form.getAttribute("data-cat"));
           const input = form.querySelector("input");
           const val = input.value.trim();
           if (!val) return;
-
-          const newItem = {
-            id: `${listType}-${Date.now()}`,
+          state.checklistCategories[c].items.push({
+            id: `it-${Date.now()}`,
             text: val,
             done: false
-          };
-          if (listType === "packing") newItem.category = "其他自訂物品";
-
-          appState.checklists[listType].push(newItem);
-          saveAppState("已新增至清單！");
-          renderAllChecklists();
-          input.value = "";
+          });
+          saveState("已新增項目");
+          renderChecklists();
         });
       });
 
-      document.getElementById("resetAllDataBtn").addEventListener("click", () => {
-        openModal("重置全站手帳資料", `
-          <div class="space-y-4 text-sm">
-            <p>確定要將所有標題、航班、行程、住宿與清單恢復為初始預設狀態嗎？</p>
-            <div class="flex justify-end gap-2">
-              <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-2 font-bold">先不要</button>
-              <button type="button" id="confirmResetBtn" class="ehon-btn bg-coral px-5 py-2 font-bold">確定重置</button>
+      // 綁定編輯分類標題
+      document.querySelectorAll(".edit-cat-title-btn").forEach((btn) => {
+        btn.addEventListener("click", () => openCategoryModal(Number(btn.getAttribute("data-cat"))));
+      });
+
+      // 綁定刪除整組分類
+      document.querySelectorAll(".del-cat-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const c = Number(btn.getAttribute("data-cat"));
+          const catName = state.checklistCategories[c].title;
+          openModal("刪除清單分類", `
+            <div class="space-y-4 text-sm">
+              <p>確定要刪除「<strong>${escapeHtml(catName)}</strong>」整組分類與裡面的所有項目嗎？</p>
+              <div class="flex justify-end gap-2">
+                <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-1.5 font-bold">取消</button>
+                <button type="button" id="confirmDelCatBtn" class="ehon-btn bg-coral px-5 py-1.5 font-bold">確定刪除</button>
+              </div>
             </div>
+          `);
+          document.getElementById("confirmDelCatBtn").addEventListener("click", () => {
+            state.checklistCategories.splice(c, 1);
+            saveState("已刪除分類");
+            renderChecklists();
+            closeModal();
+          });
+        });
+      });
+    }
+
+    function openCategoryModal(editCatIdx = null) {
+      const isEdit = editCatIdx !== null && state.checklistCategories[editCatIdx];
+      const cat = isEdit
+        ? state.checklistCategories[editCatIdx]
+        : {
+            title: "",
+            color: CARD_ACCENT_COLORS[state.checklistCategories.length % CARD_ACCENT_COLORS.length]
+          };
+
+      openModal(isEdit ? "編輯清單分類" : "新增清單分類", `
+        <form id="catModalForm" class="space-y-3 text-sm">
+          <div>
+            <label class="block font-bold mb-1">分類標題名稱</label>
+            <input type="text" name="title" value="${escapeHtml(cat.title)}" placeholder="例如：藥品與個人小物 / 伴手禮採買" class="ehon-input" required />
           </div>
-        `);
-        document.getElementById("confirmResetBtn").addEventListener("click", () => {
-          appState = JSON.parse(JSON.stringify(DEFAULT_TRIP_DATA));
-          currentDayIndex = 0;
-          saveAppState("已恢復為香港跨年預設手帳！");
-          renderAll();
-          closeModal();
-        });
-      });
-    }
+          <div>
+            <label class="block font-bold mb-1">標籤色系</label>
+            <select name="color" class="ehon-input">
+              <option value="bg-coral" ${cat.color === "bg-coral" ? "selected" : ""}>珊瑚粉</option>
+              <option value="bg-yamabuki" ${cat.color === "bg-yamabuki" ? "selected" : ""}>山吹黃</option>
+              <option value="bg-mizuiro" ${cat.color === "bg-mizuiro" ? "selected" : ""}>水色藍</option>
+              <option value="bg-wakatake" ${cat.color === "bg-wakatake" ? "selected" : ""}>若竹綠</option>
+            </select>
+          </div>
+          <div class="pt-2 flex justify-end gap-2">
+            <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-1.5 font-bold">取消</button>
+            <button type="submit" class="ehon-btn bg-yamabuki px-5 py-1.5 font-bold">儲存</button>
+          </div>
+        </form>
+      `);
 
-    // ==========================================
-    // 9. 減少動態效果與導覽高亮
-    // ==========================================
-    function initMotionToggle() {
-      const btn = document.getElementById("motionToggleBtn");
-      const label = document.getElementById("motionLabel");
-      const dot = document.getElementById("motionDot");
+      document.getElementById("catModalForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const title = fd.get("title").trim();
+        const color = fd.get("color");
+        if (!title) return;
 
-      const systemPrefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      let savedPref = null;
-      try {
-        savedPref = localStorage.getItem(STORAGE_KEY_MOTION);
-      } catch (e) {}
-
-      let isReduced = savedPref !== null ? savedPref === "true" : systemPrefersReduced;
-
-      function applyMotionState() {
-        if (isReduced) {
-          document.body.classList.add("reduce-motion");
-          btn.setAttribute("aria-pressed", "true");
-          label.textContent = "動態:關";
-          dot.classList.remove("bg-wakatake");
-          dot.classList.add("bg-coral");
+        if (isEdit) {
+          cat.title = title;
+          cat.color = color;
+          saveState("已更新分類");
         } else {
-          document.body.classList.remove("reduce-motion");
-          btn.setAttribute("aria-pressed", "false");
-          label.textContent = "動態:開";
-          dot.classList.remove("bg-coral");
-          dot.classList.add("bg-wakatake");
+          state.checklistCategories.push({
+            id: `cat-${Date.now()}`,
+            title,
+            color,
+            items: []
+          });
+          saveState("已新增清單分類");
         }
-      }
-
-      applyMotionState();
-
-      btn.addEventListener("click", () => {
-        isReduced = !isReduced;
-        try {
-          localStorage.setItem(STORAGE_KEY_MOTION, String(isReduced));
-        } catch (e) {}
-        applyMotionState();
-        showToast(isReduced ? "已開啟減少動態效果" : "已恢復繪本動態效果");
+        renderChecklists();
+        closeModal();
       });
     }
 
-    function initScrollSpy() {
-      const sections = ["hero", "flights", "itinerary", "hotel", "checklists"];
-      const navLinks = document.querySelectorAll(".nav-link");
-
-      window.addEventListener("scroll", () => {
-        let current = "hero";
-        const scrollPos = window.scrollY + 130;
-
-        sections.forEach((id) => {
-          const el = document.getElementById(id);
-          if (el && el.offsetTop <= scrollPos) current = id;
-        });
-
-        navLinks.forEach((link) => {
-          const target = link.getAttribute("data-nav");
-          if (target === current) {
-            link.classList.remove("bg-washi");
-            link.classList.add("bg-yamabuki");
-          } else {
-            link.classList.remove("bg-yamabuki");
-            link.classList.add("bg-washi");
-          }
-        });
-      }, { passive: true });
-    }
-
+    // ==========================================
+    // 10. 整體渲染與事件初始化
+    // ==========================================
     function renderAll() {
       renderHero();
       renderFlights();
       renderDayTabs();
-      renderDayTimeline(false);
-      renderHotel();
-      renderAllChecklists();
+      renderDayContent();
+      renderHotels();
+      renderChecklists();
+      switchMainTab(activeMainTab);
     }
 
-    // ==========================================
-    // 10. 頁面初始化
-    // ==========================================
     window.addEventListener("DOMContentLoaded", () => {
-      initMotionToggle();
       renderAll();
       setInterval(updateCountdown, 1000);
 
-      document.getElementById("openHeroModalBtn").addEventListener("click", openHeroEditModal);
-      document.getElementById("quickDateBtn").addEventListener("click", openHeroEditModal);
-      document.getElementById("editDayThemeBtn").addEventListener("click", openDayThemeModal);
-      document.getElementById("openAddEventModalBtn").addEventListener("click", () => openEventModal(null));
-      document.getElementById("openHotelModalBtn").addEventListener("click", openHotelEditModal);
-
-      // 綁定跨裝置網址同步與 JSON 備份匯出入按鈕
-      document.getElementById("shareUrlBtn").addEventListener("click", handleGenerateShareUrl);
+      // 頂部區按鈕
+      document.getElementById("editHeroBtn").addEventListener("click", openHeroModal);
+      document.getElementById("quickCountdownBtn").addEventListener("click", openHeroModal);
+      document.getElementById("shareUrlBtn").addEventListener("click", handleShareUrl);
       document.getElementById("exportJsonBtn").addEventListener("click", handleExportJson);
+
       const importInput = document.getElementById("importJsonInput");
       document.getElementById("importJsonBtn").addEventListener("click", () => importInput.click());
       importInput.addEventListener("change", (e) => {
         if (e.target.files && e.target.files[0]) {
-          handleImportJsonFile(e.target.files[0]);
+          handleImportJson(e.target.files[0]);
           e.target.value = "";
         }
       });
 
-      if (syncedFromUrlBanner) {
-        setTimeout(() => {
-          showToast("已從分享連結同步最新行程！🎉");
-        }, 400);
-      }
+      // 主分頁導覽
+      document.querySelectorAll(".main-tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => switchMainTab(btn.getAttribute("data-tab")));
+      });
 
-      initChecklistForms();
-      initScrollSpy();
+      // 各分頁新增按鈕
+      document.getElementById("addFlightBtn").addEventListener("click", () => openFlightModal(null));
+      document.getElementById("addDayBtn").addEventListener("click", () => openDayMetaModal(true));
+      document.getElementById("editDayMetaBtn").addEventListener("click", () => openDayMetaModal(false));
+      document.getElementById("addEventBtn").addEventListener("click", () => openEventModal(null));
+
+      document.getElementById("deleteDayBtn").addEventListener("click", () => {
+        if (state.days.length <= 1) {
+          showToast("至少需保留一天行程");
+          return;
+        }
+        const dayTitle = state.days[activeDayIndex].tabTitle;
+        openModal("刪除行程天數", `
+          <div class="space-y-4 text-sm">
+            <p>確定要刪除「<strong>${escapeHtml(dayTitle)}</strong>」及其所有行程節點嗎？</p>
+            <div class="flex justify-end gap-2">
+              <button type="button" onclick="closeModal()" class="ehon-btn bg-washi px-4 py-1.5 font-bold">取消</button>
+              <button type="button" id="confirmDelDayBtn" class="ehon-btn bg-coral px-5 py-1.5 font-bold">確定刪除</button>
+            </div>
+          </div>
+        `);
+        document.getElementById("confirmDelDayBtn").addEventListener("click", () => {
+          state.days.splice(activeDayIndex, 1);
+          activeDayIndex = Math.max(0, activeDayIndex - 1);
+          saveState("已刪除天數");
+          renderDayTabs();
+          renderDayContent();
+          closeModal();
+        });
+      });
+
+      document.getElementById("addHotelBtn").addEventListener("click", () => openHotelModal(null));
+      document.getElementById("addCategoryBtn").addEventListener("click", () => openCategoryModal(null));
+
+      if (syncedFromHash) {
+        setTimeout(() => showToast("已從分享網址同步最新行程 🎉"), 350);
+      }
     });
   </script>
 </body>
